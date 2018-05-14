@@ -1,15 +1,15 @@
 <section class="gh-canvas">
     <header class="gh-canvas-header">
-        <h2 class="gh-canvas-title" data-test-screen-title>Your pages</h2>
+        <h2 class="gh-canvas-title" data-test-screen-title>{{t "Your pages"}}</h2>
         <section class="view-actions">
-            {{#link-to "editor.new" "page" class="gh-btn gh-btn-green" data-test-new-page-button=true}}<span>New page</span>{{/link-to}}
+            {{#link-to "editor.new" "page" class="gh-btn gh-btn-green" data-test-new-page-button=true}}<span>{{t "New page"}}</span>{{/link-to}}
         </section>
     </header>
 
     <div class="gh-contentfilter">
         <div class="gh-contentfilter-left">
             {{#power-select
-                placeholder="All pages"
+                placeholder=(t "filter.All pages")
                 selected=selectedType
                 options=availableTypes
                 searchField="name"
@@ -27,7 +27,7 @@
 
             {{#unless session.user.isAuthorOrContributor}}
             {{#power-select
-                placeholder="All authors"
+                placeholder=(t "filter.All authors")
                 selected=selectedAuthor
                 options=availableAuthors
                 searchField="name"
@@ -45,7 +45,7 @@
             {{/unless}}
 
             {{#power-select
-                placeholder="All tags"
+                placeholder=(t "filter.All tags")
                 selected=selectedTag
                 options=availableTags
                 searchField="name"
@@ -54,7 +54,7 @@
                 classNames="gh-contentfilter-menu gh-contentfilter-tag"
                 triggerClass="gh-contentfilter-menu-trigger"
                 dropdownClass="gh-contentfilter-menu-dropdown"
-                searchPlaceholder="Search tags"
+                searchPlaceholder=(t "filter.Search tags")
                 matchTriggerWidth=false
                 data-test-tag-select=true
                 as |tag|
@@ -63,7 +63,7 @@
             {{/power-select}}
         </div>
         <div class="gh-contentfilter-right">
-            Sort by:
+            {{t "order.Sort by"}}:
             {{#power-select
                 selected=selectedOrder
                 options=availableOrders

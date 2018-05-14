@@ -24,6 +24,7 @@ export default Component.extend({
     config: service(),
     notifications: service(),
     settings: service(),
+    intl: service(),
 
     tagName: 'section',
     classNames: ['gh-image-uploader'],
@@ -80,7 +81,7 @@ export default Component.extend({
     description: computed('text', 'altText', function () {
         let altText = this.altText;
 
-        return this.text || (altText ? `Upload image of "${altText}"` : 'Upload an image');
+        return this.text || (altText ? this.intl.t('Upload image of "{altText}"', {altText}) : this.intl.t('Upload an image'));
     }),
 
     progressStyle: computed('uploadPercentage', function () {
@@ -240,13 +241,13 @@ export default Component.extend({
             let validExtensions = this.extensions.join(', .').toUpperCase();
             validExtensions = `.${validExtensions}`;
 
-            message = `The image type you uploaded is not supported. Please use ${validExtensions}`;
+            message = this.intl.t('The image type you uploaded is not supported. Please use {validExtensions}', {validExtensions});
         } else if (isRequestEntityTooLargeError(error)) {
-            message = 'The image you uploaded was larger than the maximum file size your server allows.';
+            message = this.intl.t('The image you uploaded was larger than the maximum file size your server allows.');
         } else if (error.payload.errors && !isBlank(error.payload.errors[0].message)) {
             message = error.payload.errors[0].message;
         } else {
-            message = 'Something went wrong :(';
+            message = this.intl.t('Something went wrong :(');
         }
 
         this.set('failureMessage', message);

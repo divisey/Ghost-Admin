@@ -4,6 +4,7 @@ import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend({
     feature: service(),
+    intl: service(),
 
     // redirect if subscribers is disabled or user isn't owner/admin
     beforeModel() {
@@ -29,7 +30,7 @@ export default AuthenticatedRoute.extend({
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Subscribers'
+            titleToken: this.intl.t('pageTitle.Subscribers')
         };
     }
 });

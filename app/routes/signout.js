@@ -3,6 +3,7 @@ import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend({
     notifications: service(),
+    intl: service(),
 
     afterModel(/*model, transition*/) {
         this.notifications.clearAll();
@@ -11,7 +12,7 @@ export default AuthenticatedRoute.extend({
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Sign Out'
+            titleToken: this.intl.t('pageTitle.Sign Out')
         };
     }
 });

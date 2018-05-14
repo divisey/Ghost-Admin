@@ -16,6 +16,7 @@ export default Controller.extend({
     notifications: service(),
     session: service(),
     settings: service(),
+    intl: service(),
 
     dirtyAttributes: false,
     newNavItem: null,
@@ -113,7 +114,7 @@ export default Controller.extend({
             let settings = this.settings;
 
             if (!transition) {
-                this.notifications.showAlert('Sorry, there was an error in the application. Please let the Ghost team know what happened.', {type: 'error'});
+                this.notifications.showAlert(this.intl.t('Sorry, there was an error in the application. Please let the Ghost team know what happened.'), {type: 'error'});
                 return;
             }
 

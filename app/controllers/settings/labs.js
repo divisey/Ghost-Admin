@@ -42,15 +42,15 @@ export default Controller.extend({
     notifications: service(),
     session: service(),
     settings: service(),
+    intl: service(),
 
     importErrors: null,
     importSuccessful: false,
     showDeleteAllModal: false,
     showMemberConfig: false,
     submitting: false,
-    uploadButtonText: 'Import',
-
     importMimeType: null,
+
     jsonExtension: null,
     jsonMimeType: null,
     yamlExtension: null,
@@ -63,6 +63,10 @@ export default Controller.extend({
         this.yamlExtension = YAML_EXTENSION;
         this.yamlMimeType = YAML_MIME_TYPE;
     },
+
+    uploadButtonText: computed('intl.locale', function () {
+        return this.intl.t('Import');
+    }),
 
     subscriptionSettings: computed('settings.membersSubscriptionSettings', function () {
         let subscriptionSettings = this.parseSubscriptionSettings(this.get('settings.membersSubscriptionSettings'));
@@ -88,7 +92,7 @@ export default Controller.extend({
             let currentUserId = this.get('session.user.id');
             let dbUrl = this.get('ghostPaths.url').api('db');
 
-            this.set('uploadButtonText', 'Importing');
+            this.set('uploadButtonText', this.intl.t('Importing'));
             this.set('importErrors', null);
             this.set('importSuccessful', false);
 
@@ -123,7 +127,7 @@ export default Controller.extend({
                     this.set('session.user', store.findRecord('user', currentUserId));
 
                     // TODO: keep as notification, add link to view content
-                    notifications.showNotification('Import successful.', {key: 'import.upload.success'});
+                    notifications.showNotification(this.intl.t('Import successful.'), {key: 'import.upload.success'});
 
                     // reload settings
                     return this.settings.reload().then((settings) => {
@@ -137,12 +141,12 @@ export default Controller.extend({
                 } else if (response && response.payload.errors && isEmberArray(response.payload.errors)) {
                     this.set('importErrors', response.payload.errors);
                 } else {
-                    this.set('importErrors', [{message: 'Import failed due to an unknown error. Check the Web Inspector console and network tabs for errors.'}]);
+                    this.set('importErrors', [{message: this.intl.t('Import failed due to an unknown error. Check the Web Inspector console and network tabs for errors.')}]);
                 }
 
                 throw response;
             }).finally(() => {
-                this.set('uploadButtonText', 'Import');
+                this.set('uploadButtonText', this.intl.t('Import'));
             });
         },
 
@@ -288,7 +292,7 @@ export default Controller.extend({
 
         try {
             yield this.ajax.post(emailUrl);
-            notifications.showAlert('Check your email for the test message.', {type: 'info', key: 'test-email.send.success'});
+            notifications.showAlert(this.intl.t('Check your email for the test message.'), {type: 'info', key: 'test-email.send.success'});
             return true;
         } catch (error) {
             notifications.showAPIError(error, {key: 'test-email:send'});

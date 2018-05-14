@@ -15,6 +15,7 @@ const orderMap = {
 /* eslint-disable ghost/ember/alias-model-in-controller */
 export default Controller.extend({
     session: service(),
+    intl: service(),
 
     queryParams: ['order', 'direction'],
     order: 'created_at',

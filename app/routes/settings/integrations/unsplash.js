@@ -5,6 +5,7 @@ import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
     config: service(),
+    intl: service(),
     settings: service(),
 
     // reload settings to ensure we have latest values and pre-configure
@@ -46,14 +47,13 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, {
             if (modelIsDirty) {
                 transition.abort();
                 controller.send('toggleLeaveSettingsModal', transition);
-                return;
             }
         }
     },
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Unsplash'
+            titleToken: this.intl.t('pageTitle.Unsplash')
         };
     }
 });

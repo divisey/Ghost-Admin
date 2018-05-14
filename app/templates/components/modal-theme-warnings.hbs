@@ -4,17 +4,17 @@
             {{#unless this.canActivate}}
                 {{this.title}}
             {{else}}
-                {{this.title}} with {{#if this.errors}}errors{{else}}warnings{{/if}}
+                {{t "{title} with {type}" title=this.title type=(if this.errors (t "errors") (t "warnings"))}}
             {{/unless}}
         </h1>
     </header>
-    <a class="close" href="#" title="Close" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">Close</span></a>
+    <a class="close" href="#" title="{{t "common.Close"}}" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">{{t "common.Close"}}</span></a>
 
     <div class="modal-body">
         {{#if this.fatalErrors}}
             <div>
-                <h2 class="mb0 mt4 f5 fw6 red">Fatal Errors</h2>
-                <p class="mb2 red">Must-fix to activate theme</p>
+                <h2 class="mb0 mt4 f5 fw6 red">{{t "Fatal Errors"}}</h2>
+                <p class="mb2 red">{{t "(Must-fix to activate theme)"}}</p>
             </div>
             <ul class="pa0" data-test-theme-fatal-errors>
             {{#each this.fatalErrors as |error|}}
@@ -27,8 +27,8 @@
 
         {{#if this.errors}}
             <div>
-                <h2 class="mb0 mt4 f5 fw6">Errors</h2>
-                <p class="mb2">Highly recommended to fix, functionality <span>could</span> be restricted</p>
+                <h2 class="mb0 mt4 f5 fw6">{{t "Errors"}}</h2>
+                <p class="mb2">{{{t "Highly recommended to fix, functionality <span>could</span> be restricted"}}}</p>
             </div>
 
             <ul class="pa0" data-test-theme-errors>
@@ -42,7 +42,7 @@
 
         {{#if (and this.warnings (or this.fatalErrors this.errors))}}
             <div>
-                <h2 class="mb0 mt4 f5 fw6">Warnings</h2>
+                <h2 class="mb0 mt4 f5 fw6">{{t "Warnings"}}</h2>
             </div>
         {{/if}}
         {{#if this.warnings}}
@@ -59,6 +59,6 @@
 
 <div class="modal-footer">
     <button {{action "closeModal"}} class="gh-btn" data-test-modal-close-button>
-        <span>Ok</span>
+        <span>{{t "common.Ok"}}</span>
     </button>
 </div>

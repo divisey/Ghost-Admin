@@ -29,6 +29,7 @@ export default Service.extend({
     },
 
     upgradeStatus: service(),
+    intl: service(),
 
     alerts: filter('content', function (notification) {
         let status = get(notification, 'status');
@@ -128,7 +129,7 @@ export default Service.extend({
         }
         options.key = ['api-error', options.key].compact().join('.');
 
-        let msg = options.defaultErrorText || 'There was a problem on the server, please try again.';
+        let msg = options.defaultErrorText || this.intl.t('There was a problem on the server, please try again.');
 
         if (resp instanceof String) {
             msg = resp;

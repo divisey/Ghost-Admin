@@ -7,6 +7,7 @@ export default Service.extend(Evented, {
 
     ghostPaths: service(),
     session: service(),
+    intl: service(),
 
     // this service is responsible for managing tour item visibility and syncing
     // the viewed state with the server
@@ -47,20 +48,20 @@ export default Service.extend(Evented, {
 
         this.throbbers = [{
             id: 'getting-started',
-            title: 'Getting started with Ghost',
-            message: `Welcome to Ghost Admin! From here you can browse your site, manage your content, and edit your settings.<br><br>You can always login to Ghost Admin by visiting <a href="${adminUrl}" target="_blank">${adminDisplayUrl}</a>`
+            title: this.intl.t('tour.Getting started with Ghost'),
+            message: this.intl.t('tour.Welcome to Ghost Admin! From here you can browse your site, manage your content, and edit your settings.<br><br>You can always login to Ghost Admin by visiting <a href="{adminUrl}" target="_blank">{adminDisplayUrl}</a>', {adminUrl, adminDisplayUrl})
         }, {
             id: 'using-the-editor',
-            title: 'Using the Ghost editor',
-            message: 'Ghost uses Markdown to allow you to write and format content quickly and easily. This toolbar also helps! Hit the <strong>?</strong> icon for more editor shortcuts.'
+            title: this.intl.t('tour.Using the Ghost editor'),
+            message: this.intl.t('tour.Ghost uses Markdown to allow you to write and format content quickly and easily. This toolbar also helps! Hit the <strong>?</strong> icon for more editor shortcuts.')
         }, {
             id: 'featured-post',
-            title: 'Setting a featured post',
-            message: 'Depending on your theme, featured posts receive special styling to make them stand out as a particularly important or emphasised story.'
+            title: this.intl.t('tour.Setting a featured post'),
+            message: this.intl.t('tour.Depending on your theme, featured posts receive special styling to make them stand out as a particularly important or emphasised story.')
         }, {
             id: 'upload-a-theme',
-            title: 'Customising your publication',
-            message: 'Using custom themes, you can completely control the look and feel of your site to suit your branch. Here\'s a full guide to help: <strong><a href="https://docs.ghost.org/api/handlebars-themes/" target="_blank">https://docs.ghost.org/api/handlebars-themes/</a></strong>'
+            title: this.intl.t('tour.Customising your publication'),
+            message: this.intl.t('tour.Using custom themes, you can completely control the look and feel of your site to suit your branch. Here\'s a full guide to help: <strong><a href="{link}" target="_blank">{link}</a></strong>', {link: 'https://docs.ghost.org/api/handlebars-themes/'})
         }];
     },
 

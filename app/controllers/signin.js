@@ -16,6 +16,7 @@ export default Controller.extend(ValidationEngine, {
     notifications: service(),
     session: service(),
     settings: service(),
+    intl: service(),
 
     submitting: false,
     loggingIn: false,
@@ -74,7 +75,7 @@ export default Controller.extend(ValidationEngine, {
             } else {
                 // Connection errors don't return proper status message, only req.body
                 this.notifications.showAlert(
-                    'There was a problem on the server.',
+                    this.intl.t('There was a problem on the server.'),
                     {type: 'error', key: 'session.authenticate.failed'}
                 );
             }
@@ -98,7 +99,7 @@ export default Controller.extend(ValidationEngine, {
             return yield this.authenticate
                 .perform(authStrategy, [signin.get('identification'), signin.get('password')]);
         } catch (error) {
-            this.set('flowErrors', 'Please fill out the form to sign in.');
+            this.set('flowErrors', this.intl.t('Please fill out the form to sign in.'));
         }
     }).drop(),
 
@@ -115,14 +116,14 @@ export default Controller.extend(ValidationEngine, {
             yield this.validate({property: 'forgotPassword'});
             yield this.ajax.post(forgottenUrl, {data: {passwordreset: [{email}]}});
             notifications.showAlert(
-                'Please check your email for instructions.',
+                this.intl.t('Please check your email for instructions.'),
                 {type: 'info', key: 'forgot-password.send.success'}
             );
             return true;
         } catch (error) {
             // ValidationEngine throws "undefined" for failed validation
             if (!error) {
-                return this.set('flowErrors', 'We need your email address to reset your password!');
+                return this.set('flowErrors', this.intl.t('We need your email address to reset your password!'));
             }
 
             if (isVersionMismatchError(error)) {
@@ -138,7 +139,7 @@ export default Controller.extend(ValidationEngine, {
                     this.get('signin.errors').add('identification', '');
                 }
             } else {
-                notifications.showAPIError(error, {defaultErrorText: 'There was a problem with the reset, please try again.', key: 'forgot-password.send'});
+                notifications.showAPIError(error, {defaultErrorText: this.intl.t('There was a problem with the reset, please try again.'), key: 'forgot-password.send'});
             }
         }
     })

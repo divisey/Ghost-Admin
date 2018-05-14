@@ -1,14 +1,14 @@
 <header class="modal-header" data-test-modal="webhook-form">
-    <h1 data-test-text="title">{{if webhook.isNew "New" "Edit"}} webhook</h1>
+    <h1 data-test-text="title">{{if webhook.isNew (t "New webhook") (t "Edit webhook")}}</h1>
 </header>
-<button class="close" href="" title="Close" {{action "closeModal"}} {{action (optional noop) on="mouseDown"}}>
+<button class="close" href="" title="{{t "common.Close"}}" {{action "closeModal"}} {{action (optional noop) on="mouseDown"}}>
     {{svg-jar "close"}}
 </button>
 
 <div class="modal-body">
     <fieldset>
         {{#gh-form-group errors=webhook.errors hasValidated=webhook.hasValidated property="name"}}
-            <label for="webhook-name" class="fw6">Name</label>
+            <label for="webhook-name" class="fw6">{{t "Name"}}</label>
             {{gh-text-input
                 value=(readonly webhook.name)
                 input=(action (mut webhook.name) value="target.value")
@@ -16,7 +16,7 @@
                 id="webhook-name"
                 name="name"
                 class="gh-input mt1"
-                placeholder="Webhook name..."
+                placeholder=(t "Webhook name...")
                 autofocus="autofocus"
                 autocapitalize="off"
                 autocorrect="off"
@@ -26,7 +26,7 @@
     </fieldset>
     <fieldset>
         {{#gh-form-group errors=webhook.errors hasValidated=webhook.hasValidated property="event"}}
-            <label for="webhook-event" class="fw6">Event</label>
+            <label for="webhook-event" class="fw6">{{t "Event"}}</label>
             <span class="gh-select">
                 {{one-way-select webhook.event
                     options=availableEvents
@@ -36,7 +36,7 @@
                     groupLabelPath="group"
                     class="mt1"
                     includeBlank=true
-                    prompt="Select an event"
+                    prompt=(t "Select an event")
                     update=(action "selectEvent")
                     id="webhook-event"
                     name="event"
@@ -48,7 +48,7 @@
     </fieldset>
     <fieldset>
         {{#gh-form-group errors=webhook.errors hasValidated=webhook.hasValidated property="targetUrl"}}
-            <label for="webhook-targetUrl" class="fw6">Target URL</label>
+            <label for="webhook-targetUrl" class="fw6">{{t "Target URL"}}</label>
             {{gh-text-input
                 value=(readonly webhook.targetUrl)
                 input=(action (mut webhook.targetUrl) value="target.value")
@@ -56,7 +56,7 @@
                 id="webhook-targetUrl"
                 name="targetUrl"
                 class="gh-input mt1"
-                placeholder="Webhook target URL..."
+                placeholder=(t "Webhook target URL...")
                 autofocus="autofocus"
                 autocapitalize="off"
                 autocorrect="off"
@@ -67,7 +67,7 @@
     {{#if config.enableDeveloperExperiments}}
         <fieldset>
             {{#gh-form-group errors=webhook.errors hasValidated=webhook.hasValidated property="secret"}}
-                <label for="webhook-secret" class="fw6">Secret</label>
+                <label for="webhook-secret" class="fw6">{{t "Secret"}}</label>
                 {{gh-text-input
                     value=(readonly webhook.secret)
                     oninput=(action (mut webhook.secret) value="target.value")
@@ -75,7 +75,7 @@
                     id="webhook-secret"
                     name="secret"
                     class="gh-input mt1"
-                    placeholder="Webhook secret..."
+                    placeholder=(t "Webhook secret...")
                     autofocus="autofocus"
                     autocapitalize="off"
                     autocorrect="off"
@@ -97,7 +97,7 @@
         {{action (optional noop) on="mouseDown"}}
         data-test-button="cancel-webhook"
     >
-        <span>Cancel</span>
+        <span>{{t "common.Cancel"}}</span>
     </button>
     {{gh-task-button buttonText
         successText=successText

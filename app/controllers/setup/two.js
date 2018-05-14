@@ -16,6 +16,7 @@ export default Controller.extend(ValidationEngine, {
     notifications: service(),
     session: service(),
     settings: service(),
+    intl: service(),
 
     // ValidationEngine settings
     validationType: 'setup',
@@ -73,7 +74,7 @@ export default Controller.extend(ValidationEngine, {
                 this.set('flowErrors', error.payload.errors[0].message.string);
             } else {
                 // Connection errors don't return proper status message, only req.body
-                this.notifications.showAlert('There was a problem on the server.', {type: 'error', key: 'session.authenticate.failed'});
+                this.notifications.showAlert(this.intl.t('There was a problem on the server.'), {type: 'error', key: 'session.authenticate.failed'});
             }
         }
     }),
@@ -155,7 +156,7 @@ export default Controller.extend(ValidationEngine, {
                 this._handleSaveError(error);
             });
         }).catch(() => {
-            this.set('flowErrors', 'Please fill out the form to setup your blog.');
+            this.set('flowErrors', this.intl.t('Please fill out the form to setup your blog.'));
         });
     },
 
@@ -174,7 +175,7 @@ export default Controller.extend(ValidationEngine, {
             this.set('flowErrors', [apiError.message, apiError.context].join(' '));
         } else {
             // Connection errors don't return proper status message, only req.body
-            this.notifications.showAlert('There was a problem on the server.', {type: 'error', key: 'setup.authenticate.failed'});
+            this.notifications.showAlert(this.intl.t('There was a problem on the server.'), {type: 'error', key: 'setup.authenticate.failed'});
         }
     },
 

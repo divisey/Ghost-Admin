@@ -3,8 +3,10 @@ import $ from 'jquery';
 import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
 import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
 import ShortcutsRoute from 'ghost-admin/mixins/shortcuts-route';
+import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, ShortcutsRoute, {
+    intl: service(),
 
     shortcuts: null,
 
@@ -84,7 +86,7 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, ShortcutsRoute, {
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Settings - Tags'
+            titleToken: this.intl.t('pageTitle.Settings - Tags')
         };
     },
 

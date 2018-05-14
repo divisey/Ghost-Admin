@@ -1,10 +1,12 @@
 import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
 import {assign} from '@ember/polyfills';
+import {computed} from '@ember/object';
 import {isBlank} from '@ember/utils';
 import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend({
     infinity: service(),
+    intl: service(),
 
     queryParams: {
         type: {
@@ -26,8 +28,11 @@ export default AuthenticatedRoute.extend({
     },
 
     modelName: 'post',
-
     perPage: 30,
+
+    titleToken: computed('intl.locale', function () {
+        return this.intl.t('pageTitle.Posts');
+    }),
 
     model(params) {
         return this.session.user.then((user) => {
@@ -129,12 +134,10 @@ export default AuthenticatedRoute.extend({
     },
 
     _filterString(filter) {
-        return Object.keys(filter).map((key) => {
-            let value = filter[key];
-
-            if (!isBlank(value)) {
-                return `${key}:${filter[key]}`;
-            }
-        }).compact().join('+');
+        return Object.entries(filter)
+            .filter(([key, value]) => !isBlank(value) && key)
+            .map(([key, value]) => `${key}:${value}`)
+            .compact()
+            .join('+');
     }
 });

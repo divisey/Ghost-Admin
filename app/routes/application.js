@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 import Route from '@ember/routing/route';
 import ShortcutsRoute from 'ghost-admin/mixins/shortcuts-route';
 import ctrlOrCmd from 'ghost-admin/utils/ctrl-or-cmd';
+import moment from 'moment';
 import windowProxy from 'ghost-admin/utils/window-proxy';
 import {
     isAjaxError,
@@ -37,6 +38,8 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
     settings: service(),
     tour: service(),
     ui: service(),
+    intl: service(),
+    lazyLoader: service(),
 
     shortcuts,
 
@@ -50,7 +53,25 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
     },
 
     beforeModel() {
-        return this.config.fetchUnauthenticated();
+        return this.config.fetchUnauthenticated().then(() => {
+            return this.ajax.request(`${this.ghostPaths.adminRoot}assets/locales/en.json`)
+                .then(translations => this.intl.addTranslations('en', translations))
+                .then(() => this.intl.setLocale(['en']))
+                .then(() => {
+                    if (this.config.get('defaultLocale')) {
+                        return RSVP.all([
+                            this.lazyLoader
+                                .loadScript('moment-locale', `assets/moment/locale/${this.config.get('defaultLocale')}.js`)
+                                .then(() => moment.locale(this.config.get('defaultLocale')))
+                                .catch(() => (`Looks like momentjs doesn't support your "${this.config.get('defaultLocale')}" locale`)),
+                            this.ajax.request(`${this.ghostPaths.adminRoot}assets/locales/${this.config.get('defaultLocale')}.json`)
+                                .then(translations => this.intl.addTranslations(this.config.get('defaultLocale'), translations))
+                                .then(() => this.intl.setLocale([this.config.get('defaultLocale')].concat(this.intl.locales)))
+                                .catch(e => (`Failed to init translations for "${this.config.get('defaultLocale')}" locale: ${e.message}`))
+                        ]);
+                    }
+                });
+        });
     },
 
     afterModel(model, transition) {

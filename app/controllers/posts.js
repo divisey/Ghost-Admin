@@ -5,30 +5,30 @@ import {get} from '@ember/object';
 import {inject as service} from '@ember/service';
 
 const TYPES = [{
-    name: 'All posts',
+    name: 'filter.All posts',
     value: null
 }, {
-    name: 'Draft posts',
+    name: 'filter.Draft posts',
     value: 'draft'
 }, {
-    name: 'Published posts',
+    name: 'filter.Published posts',
     value: 'published'
 }, {
-    name: 'Scheduled posts',
+    name: 'filter.Scheduled posts',
     value: 'scheduled'
 }, {
-    name: 'Featured posts',
+    name: 'filter.Featured posts',
     value: 'featured'
 }];
 
 const ORDERS = [{
-    name: 'Newest',
+    name: 'order.Newest',
     value: null
 }, {
-    name: 'Oldest',
+    name: 'order.Oldest',
     value: 'published_at asc'
 }, {
-    name: 'Recently updated',
+    name: 'order.Recently updated',
     value: 'updated_at desc'
 }];
 
@@ -36,6 +36,7 @@ export default Controller.extend({
 
     session: service(),
     store: service(),
+    intl: service(),
 
     queryParams: ['type', 'author', 'tag', 'order'],
 
@@ -47,16 +48,15 @@ export default Controller.extend({
     _hasLoadedTags: false,
     _hasLoadedAuthors: false,
 
-    availableTypes: null,
-    availableOrders: null,
-
-    init() {
-        this._super(...arguments);
-        this.availableTypes = TYPES;
-        this.availableOrders = ORDERS;
-    },
-
     postsInfinityModel: alias('model'),
+
+    availableTypes: computed('intl.locale', function () {
+        return TYPES.map(({name, value}) => Object({name: this.intl.t(name).toString(), value}));
+    }),
+
+    availableOrders: computed('intl.locale', function () {
+        return ORDERS.map(({name, value}) => Object({name: this.intl.t(name).toString(), value}));
+    }),
 
     showingAll: computed('type', 'author', 'tag', function () {
         let {type, author, tag} = this.getProperties(['type', 'author', 'tag']);
@@ -84,7 +84,7 @@ export default Controller.extend({
             .sort((tagA, tagB) => tagA.name.localeCompare(tagB.name, undefined, {ignorePunctuation: true}));
         let options = tags.toArray();
 
-        options.unshiftObject({name: 'All tags', slug: null});
+        options.unshiftObject({name: this.intl.t('filter.All tags').toString(), slug: null});
 
         return options;
     }),
@@ -104,7 +104,7 @@ export default Controller.extend({
         let authors = this.get('_availableAuthors');
         let options = authors.toArray();
 
-        options.unshiftObject({name: 'All authors', slug: null});
+        options.unshiftObject({name: this.intl.t('filter.All authors').toString(), slug: null});
 
         return options;
     }),

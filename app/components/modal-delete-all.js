@@ -8,6 +8,7 @@ export default ModalComponent.extend({
     notifications: service(),
     store: service(),
     ajax: service(),
+    intl: service(),
 
     actions: {
         confirm() {
@@ -26,7 +27,7 @@ export default ModalComponent.extend({
     },
 
     _showSuccess() {
-        this.notifications.showAlert('All content deleted from database.', {type: 'success', key: 'all-content.delete.success'});
+        this.notifications.showAlert(this.intl.t('All content deleted from database.'), {type: 'success', key: 'all-content.delete.success'});
     },
 
     _showFailure(error) {

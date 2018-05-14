@@ -136,6 +136,7 @@ module.exports = function (defaults) {
         },
         fingerprint: {
             enabled: isProduction,
+            exclude: ['assets/moment/locale/*'],
             extensions: ['js', 'css', 'png', 'jpg', 'jpeg', 'gif', 'map']
         },
         minifyJS: {
@@ -147,7 +148,16 @@ module.exports = function (defaults) {
         },
         nodeAssets: {
             codemirror: codemirrorAssets(),
-            simplemde: simplemdeAssets()
+            simplemde: simplemdeAssets(),
+            moment: {
+                public: {
+                    include: ['locale/*'],
+                    destDir: '/assets/moment',
+                    processTree(tree) {
+                        return tree;
+                    }
+                }
+            }
         },
         postcssOptions: {
             compile: {

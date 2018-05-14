@@ -3,14 +3,14 @@
     <div class="gh-flow-content-wrap">
         <section class="gh-flow-content">
             <header>
-                <h1>Create your account</h1>
+                <h1>{{t "Create your account"}}</h1>
             </header>
 
             <form id="signup" class="gh-flow-create" method="post" novalidate="novalidate" onsubmit={{action "submit"}}>
                 {{gh-profile-image email=signupDetails.email setImage=(action "setImage")}}
 
                 {{#gh-form-group errors=signupDetails.errors hasValidated=signupDetails.hasValidated property="name"}}
-                    <label for="name">Full name</label>
+                    <label for="name">{{t "Full Name"}}</label>
                     <span class="gh-input-icon gh-icon-user">
                         {{svg-jar "user-circle"}}
                         {{gh-trim-focus-input
@@ -18,7 +18,7 @@
                             type="text"
                             id="display-name"
                             name="display-name"
-                            placeholder="Eg. John H. Watson"
+                            placeholder=(t "Eg. John H. Watson")
                             autocorrect="off"
                             autocomplete="name"
                             value=(readonly signupDetails.name)
@@ -31,7 +31,7 @@
                 {{/gh-form-group}}
 
                 {{#gh-form-group errors=signupDetails.errors hasValidated=signupDetails.hasValidated property="email"}}
-                    <label for="email">Email address</label>
+                    <label for="email">{{t "Email address"}}</label>
                     <span class="gh-input-icon gh-icon-mail">
                         {{svg-jar "email"}}
                         {{gh-text-input
@@ -39,7 +39,7 @@
                             type="text"
                             id="username"
                             name="username"
-                            placeholder="Eg. john@example.com"
+                            placeholder=(t "Eg. john@example.com")
                             autocorrect="off"
                             autocomplete="username email"
                             value=(readonly signupDetails.email)
@@ -52,7 +52,7 @@
                 {{/gh-form-group}}
 
                 {{#gh-form-group errors=signupDetails.errors hasValidated=signupDetails.hasValidated property="password"}}
-                    <label for="password">Password</label>
+                    <label for="password">{{t "Password"}}</label>
                     <span class="gh-input-icon gh-icon-lock">
                         {{svg-jar "lock"}}
                         {{gh-text-input
@@ -60,7 +60,7 @@
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="At least 10 characters"
+                            placeholder=(t "At least 10 characters")
                             autocorrect="off"
                             autocomplete="new-password"
                             value=(readonly signupDetails.password)
@@ -73,11 +73,11 @@
                 {{/gh-form-group}}
             </form>
 
-            {{gh-task-button "Create Account"
+            {{gh-task-button (t "taskButton.Create Account")
                 type="submit"
                 form="signup"
                 defaultClick=true
-                runningText="Creating"
+                runningText=(t "taskButton.Creating")
                 task=signup
                 class="gh-btn gh-btn-green gh-btn-lg gh-btn-block gh-btn-icon"
                 tabindex="3"}}

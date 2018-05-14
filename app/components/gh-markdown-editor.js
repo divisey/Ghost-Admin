@@ -14,6 +14,7 @@ export default Component.extend(ShortcutsMixin, {
     config: service(),
     notifications: service(),
     settings: service(),
+    intl: service(),
 
     classNames: ['gh-markdown-editor'],
     classNameBindings: [
@@ -67,16 +68,57 @@ export default Component.extend(ShortcutsMixin, {
             // Ghost-specific SimpleMDE toolbar config - allows us to create a
             // bridge between SimpleMDE buttons and Ember actions
             toolbar: [
-                'bold', 'italic', 'heading', '|',
-                'quote', 'unordered-list', 'ordered-list', '|',
-                'link',
+                {
+                    name: 'bold',
+                    action: () => this._editor.toggleBold(this._editor),
+                    className: 'fa fa-bold',
+                    title: `${this.intl.t('editor.button.Bold')} (${ctrlOrCmd}-B)`
+                },
+                {
+                    name: 'italic',
+                    action: () => this._editor.toggleItalic(this._editor),
+                    className: 'fa fa-italic',
+                    title: `${this.intl.t('editor.button.Italic')} (${ctrlOrCmd}-I)`
+                },
+                {
+                    name: 'heading',
+                    action: () => this._editor.toggleHeadingSmaller(this._editor),
+                    className: 'fa fa-header',
+                    title: `${this.intl.t('editor.button.Heading')} (${ctrlOrCmd}-H)`
+                },
+                '|',
+                {
+                    name: 'quote',
+                    action: () => this._editor.toggleBlockquote(this._editor),
+                    className: 'fa fa-quote-left',
+                    title: `${this.intl.t('editor.button.Quote')} (${ctrlOrCmd}-')`
+                },
+                {
+                    name: 'unordered-list',
+                    action: () => this._editor.toggleUnorderedList(this._editor),
+                    className: 'fa fa-list-ul',
+                    title: `${this.intl.t('editor.button.Generic List')} (${ctrlOrCmd}-L)`
+                },
+                {
+                    name: 'ordered-list',
+                    action: () => this._editor.toggleOrderedList(this._editor),
+                    className: 'fa fa-list-ol',
+                    title: `${this.intl.t('editor.button.Numbered List')} (${ctrlOrCmd}-Alt-L)`
+                },
+                '|',
+                {
+                    name: 'link',
+                    action: () => this._editor.drawLink(this._editor),
+                    className: 'fa fa-link',
+                    title: `${this.intl.t('editor.button.Create Link')} (${ctrlOrCmd}-K)`
+                },
                 {
                     name: 'image',
                     action: () => {
                         this._openImageFileDialog();
                     },
                     className: 'fa fa-picture-o',
-                    title: 'Upload Image(s)'
+                    title: `${this.intl.t('editor.button.Upload Image(s)')} (${ctrlOrCmd}-Shift-I)`
                 },
                 '|',
                 {
@@ -85,8 +127,7 @@ export default Component.extend(ShortcutsMixin, {
                         this._togglePreview();
                     },
                     className: 'fa fa-eye no-disable',
-                    title: 'Render Preview (Ctrl-Alt-R)',
-                    useCtrlOnMac: true
+                    title: `${this.intl.t('editor.button.Render Preview')} (${ctrlOrCmd}-Alt-R)`
                 },
                 {
                     name: 'side-by-side',
@@ -94,8 +135,7 @@ export default Component.extend(ShortcutsMixin, {
                         this.send('toggleSplitScreen');
                     },
                     className: 'fa fa-columns no-disable no-mobile',
-                    title: 'Side-by-side Preview (Ctrl-Alt-P)',
-                    useCtrlOnMac: true
+                    title: `${this.intl.t('editor.button.Side-by-side Preview')} (${ctrlOrCmd}-Alt-P)`
                 },
                 '|',
                 {
@@ -104,8 +144,7 @@ export default Component.extend(ShortcutsMixin, {
                         this._toggleSpellcheck();
                     },
                     className: 'fa fa-check',
-                    title: 'Spellcheck (Ctrl-Alt-S)',
-                    useCtrlOnMac: true
+                    title: `${this.intl.t('editor.button.Spellcheck')} (${ctrlOrCmd}-Alt-S)`
                 },
                 {
                     name: 'hemingway',
@@ -113,8 +152,7 @@ export default Component.extend(ShortcutsMixin, {
                         this._toggleHemingway();
                     },
                     className: 'fa fa-h-square',
-                    title: 'Hemingway Mode (Ctrl-Alt-H)',
-                    useCtrlOnMac: true
+                    title: `${this.intl.t('editor.button.Hemingway Mode')} (${ctrlOrCmd}-Alt-H)`
                 },
                 {
                     name: 'guide',
@@ -122,7 +160,7 @@ export default Component.extend(ShortcutsMixin, {
                         this.send('toggleMarkdownHelp');
                     },
                     className: 'fa fa-question-circle',
-                    title: 'Markdown Guide'
+                    title: this.intl.t('editor.button.Markdown Guide')
                 }
             ],
 
@@ -170,7 +208,7 @@ export default Component.extend(ShortcutsMixin, {
                     this.send('toggleUnsplash');
                 },
                 className: 'fa fa-camera',
-                title: 'Add Image from Unsplash'
+                title: `${this.intl.t('editor.button.Add Image from Unsplash')} (${ctrlOrCmd}-Shift-U)`
             });
         }
 
@@ -181,26 +219,35 @@ export default Component.extend(ShortcutsMixin, {
             }
             lastItem = item;
         });
-        defaultOptions.toolbar = toolbar.filter(Boolean);
+        defaultOptions.toolbar = toolbar.filter(Boolean).map((item) => {
+            if (item.title) {
+                item.title = item.title
+                    .replace(/command/, '⌘')
+                    .replace(/ctrl/, 'Ctrl');
+            }
+            return item;
+        });
 
         return assign(defaultOptions, options);
     }),
 
     init() {
         this._super(...arguments);
-
+        //once we received translated placeholder it's SafeString; cast it to String as required by simplemde
+        this.set('placeholder', this.get('placeholder').toString());
         let shortcuts = {};
         shortcuts[`${ctrlOrCmd}+shift+i`] = {action: 'openImageFileDialog'};
-        shortcuts['ctrl+alt+s'] = {action: 'toggleSpellcheck'};
+        shortcuts[`${ctrlOrCmd}+shift+u`] = {action: 'toggleUnsplash'};
+        shortcuts[`${ctrlOrCmd}+alt+s`] = {action: 'toggleSpellcheck'};
 
         if (this.enablePreview) {
-            shortcuts['ctrl+alt+r'] = {action: 'togglePreview'};
+            shortcuts[`${ctrlOrCmd}+alt+r`] = {action: 'togglePreview'};
         }
         if (this.enableSideBySide) {
-            shortcuts['ctrl+alt+p'] = {action: 'toggleSplitScreen'};
+            shortcuts[`${ctrlOrCmd}+alt+p`] = {action: 'toggleSplitScreen'};
         }
         if (this.enableHemingway) {
-            shortcuts['ctrl+alt+h'] = {action: 'toggleHemingway'};
+            shortcuts[`${ctrlOrCmd}+alt+h`] = {action: 'toggleHemingway'};
         }
 
         this.shortcuts = shortcuts;
@@ -300,6 +347,7 @@ export default Component.extend(ShortcutsMixin, {
             if (footer) {
                 this._toolbar = this.element.querySelector('.editor-toolbar');
                 this._statusbar = this.element.querySelector('.editor-statusbar');
+                this._statusbar.querySelector('.words').dataset.content = this.intl.t('editor.words');
                 footer.appendChild(this._toolbar);
                 footer.appendChild(this._statusbar);
             }
@@ -667,10 +715,10 @@ export default Component.extend(ShortcutsMixin, {
         this._isHemingwayMode = !this._isHemingwayMode;
 
         if (this._isHemingwayMode) {
-            notificationText = '<span class="gh-notification-title">Hemingway Mode On:</span> Write now; edit later. Backspace disabled.';
+            notificationText = `<span class="gh-notification-title">${this.intl.t('editor.notice.Hemingway Mode On')}:</span> ${this.intl.t('editor.notice.Write now; edit later. Backspace disabled.')}`;
             extraKeys.Backspace = function () {};
         } else {
-            notificationText = '<span class="gh-notification-title">Hemingway Mode Off:</span> Normal editing restored.';
+            notificationText = `<span class="gh-notification-title">${this.intl.t('editor.notice.Hemingway Mode Off')}:</span> ${this.intl.t('editor.notice.Normal editing restored.')}`;
             delete extraKeys.Backspace;
         }
 

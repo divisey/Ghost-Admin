@@ -49,7 +49,7 @@
             {{#if editor.isDraggedOver}}
                 <div class="drop-target gh-editor-drop-target">
                     <div class="drop-target-message">
-                        <h3>Drop image(s) here to upload</h3>
+                        <h3>{{t "koenig.md.Drop image(s) here to upload"}}</h3>
                     </div>
                 </div>
             {{/if}}
@@ -67,18 +67,18 @@
                     <div class="gh-editor-image-upload {{if upload.errors "-error"}}">
                         <div class="gh-editor-image-upload-content">
                             {{#if upload.errors}}
-                                <h3>Upload failed</h3>
+                                <h3>{{t "koenig.md.Upload failed"}}</h3>
 
                                 {{#each upload.errors as |error|}}
                                     <div class="failed">{{error.fileName}} - {{error.message}}</div>
                                 {{/each}}
 
                                 <button class="gh-btn gh-btn-grey gh-btn-icon" {{action upload.cancel}}>
-                                    <span>{{svg-jar "close"}} Close</span>
+                                    <span>{{svg-jar "close"}} {{t "common.Close"}}</span>
                                 </button>
                             {{else}}
 
-                                <h3>Uploading {{pluralize upload.files.length "image"}}...</h3>
+                                <h3>{{t "koenig.md.Uploading {images, plural}..." images=upload.files.length}}</h3>
                                 {{upload.progressBar}}
                             {{/if}}
                         </div>

@@ -18,6 +18,7 @@ const {Errors} = DS;
 export default Controller.extend({
     two: controller('setup/two'),
     notifications: service(),
+    intl: service(),
 
     users: '',
 
@@ -33,7 +34,8 @@ export default Controller.extend({
 
         // remove "no users to invite" error if we have users
         if (users.uniq().length > 0 && errors.get('users.length') === 1) {
-            if (errors.get('users.firstObject').message.match(/no users/i)) {
+            //TODO: refactor so it shouldn't depend on locale string
+            if (errors.get('users.firstObject').message.toString().match(/no users/i)) {
                 errors.remove('users');
             }
         }
@@ -76,27 +78,20 @@ export default Controller.extend({
 
     buttonText: computed('errors.users', 'validUsersArray', 'invalidUsersArray', function () {
         let usersError = this.get('errors.users.firstObject.message');
+
         let validNum = this.validUsersArray.length;
         let invalidNum = this.invalidUsersArray.length;
-        let userCount;
 
-        if (usersError && usersError.match(/no users/i)) {
+        //TODO: (ololoken) refactor so it shouldn't depend on locale string
+        if (usersError && usersError.toString().match(/no users/i)) {
             return usersError;
         }
 
         if (invalidNum > 0) {
-            userCount = invalidNum === 1 ? 'email address' : 'email addresses';
-            return `${invalidNum} invalid ${userCount}`;
+            return this.intl.t('{invalid emails, plural}', {'invalid emails': invalidNum});
         }
 
-        if (validNum > 0) {
-            userCount = validNum === 1 ? 'user' : 'users';
-            userCount = `${validNum} ${userCount}`;
-        } else {
-            userCount = 'some users';
-        }
-
-        return `Invite ${userCount}`;
+        return this.intl.t('Invite {users, plural}', {users: validNum});
     }),
 
     buttonClass: computed('validationResult', 'usersArray.length', function () {
@@ -144,7 +139,7 @@ export default Controller.extend({
             // Only one error type here so far, but one day the errors might be more detailed
             switch (error.error) {
             case 'email':
-                errors.add(property, `${error.user} is not a valid email.`);
+                errors.add(property, this.intl.t('validation.{email} is not a valid email.', {email: error.user}));
             }
         });
 
@@ -178,7 +173,7 @@ export default Controller.extend({
                 this._transitionAfterSubmission();
             });
         } else if (users.length === 0) {
-            this.errors.add('users', 'No users to invite');
+            this.errors.add('users', this.intl.t('validation.No users to invite'));
         }
     }).drop(),
 
@@ -213,13 +208,13 @@ export default Controller.extend({
         let notifications = this.notifications;
         let erroredEmails = [];
         let successCount = 0;
-        let invitationsString, message;
+        let message;
 
         invites.forEach((invite) => {
             if (invite.success) {
                 successCount += 1;
             } else if (isInvalidError(invite.error)) {
-                message = `${invite.email} was invalid: ${invite.error.payload.errors[0].message}`;
+                message = this.intl.t('validation.{email} was invalid: {message}', {email: invite.email, message: invite.error.payload.errors[0].message});
                 notifications.showAlert(message, {type: 'error', delayed: true, key: `signup.send-invitations.${invite.email}`});
             } else {
                 erroredEmails.push(invite.email);
@@ -227,19 +222,18 @@ export default Controller.extend({
         });
 
         if (erroredEmails.length > 0) {
-            invitationsString = erroredEmails.length > 1 ? ' invitations: ' : ' invitation: ';
-            message = `Failed to send ${erroredEmails.length} ${invitationsString}`;
-            message += Ember.Handlebars.Utils.escapeExpression(erroredEmails.join(', '));
-            message += '. Please check your email configuration, see <a href=\'https://docs.ghost.org/mail/\' target=\'_blank\'>https://docs.ghost.org/mail/</a> for instructions';
+            message = this.intl.t('Failed to send {invitations, plural} {erroredEmails}. Please check your email configuration, see <a href="{link}" target="_blank">{link}</a> for instructions', {
+                invitations: erroredEmails.length,
+                erroredEmails: Ember.Handlebars.Utils.escapeExpression(erroredEmails.join(', ')),
+                link: 'https://docs.ghost.org/mail/'
+            });
 
             message = htmlSafe(message);
             notifications.showAlert(message, {type: 'error', delayed: successCount > 0, key: 'signup.send-invitations.failed'});
         }
 
         if (successCount > 0) {
-            // pluralize
-            invitationsString = successCount > 1 ? 'invitations' : 'invitation';
-            notifications.showAlert(`${successCount} ${invitationsString} sent!`, {type: 'success', delayed: true, key: 'signup.send-invitations.success'});
+            notifications.showAlert(this.intl.t('{invitations, plural} sent!', {invitations: successCount}), {type: 'success', delayed: true, key: 'signup.send-invitations.success'});
         }
     }
 });

@@ -7,12 +7,11 @@ export default BaseValidator.create({
 
     email(model) {
         let email = model.get('email');
-
         if (isBlank(email)) {
-            model.get('errors').add('email', 'Please enter an email.');
+            model.get('errors').add('email', this.t('validation.Please enter an email.'));
             this.invalidate();
         } else if (!validator.isEmail(email)) {
-            model.get('errors').add('email', 'Invalid Email.');
+            model.get('errors').add('email', this.t('validation.Invalid Email.'));
             this.invalidate();
         }
     },
@@ -21,7 +20,7 @@ export default BaseValidator.create({
         let role = model.get('role');
 
         if (isBlank(role)) {
-            model.get('errors').add('role', 'Please select a role.');
+            model.get('errors').add('role', this.t('validation.Please select a role.'));
             model.get('hasValidated').pushObject('role');
             this.invalidate();
         }

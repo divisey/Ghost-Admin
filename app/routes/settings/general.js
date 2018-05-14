@@ -6,6 +6,7 @@ import {inject as service} from '@ember/service';
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
     config: service(),
     settings: service(),
+    intl: service(),
 
     beforeModel() {
         this._super(...arguments);
@@ -52,7 +53,7 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, {
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Settings - General'
+            titleToken: this.intl.t('pageTitle.Settings - General')
         };
     }
 });

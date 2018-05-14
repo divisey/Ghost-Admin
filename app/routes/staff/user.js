@@ -1,8 +1,11 @@
 /* eslint-disable camelcase */
 import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
 import CurrentUserSettings from 'ghost-admin/mixins/current-user-settings';
+import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
+    intl: service(),
+
     model(params) {
         return this.store.queryRecord('user', {slug: params.user_slug, include: 'count.posts'});
     },
@@ -52,14 +55,13 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, {
             if (modelIsDirty || dirtyAttributes) {
                 transition.abort();
                 controller.send('toggleLeaveSettingsModal', transition);
-                return;
             }
         }
     },
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Staff - User'
+            titleToken: this.intl.t('pageTitle.Staff - User')
         };
     }
 });

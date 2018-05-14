@@ -4,6 +4,7 @@ import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
     settings: service(),
+    intl: service(),
 
     beforeModel() {
         this._super(...arguments);
@@ -26,14 +27,13 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, {
             if (modelIsDirty) {
                 transition.abort();
                 controller.send('toggleLeaveSettingsModal', transition);
-                return;
             }
         }
     },
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Slack'
+            titleToken: this.intl.t('pageTitle.Slack')
         };
     }
 });

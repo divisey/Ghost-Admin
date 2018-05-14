@@ -1,19 +1,19 @@
 <section class="gh-canvas">
     <header class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            Subscribers
+            {{t "Subscribers"}}
             <span style="font-weight:200;margin-left:10px;display:inline-block;" data-test-total-subscribers>
                 {{#if this.fetchSubscribers.lastSuccessful}}
                     ({{this.filteredSubscribers.length}})
                 {{else}}
-                    (Loading...)
+                    ({{t "Loading..."}})
                 {{/if}}
             </span>
         </h2>
         <div class="view-actions">
-            {{#link-to "subscribers.import" class="gh-btn gh-btn-hover-green mr2" data-test-link="import-csv"}}<span>Import CSV</span>{{/link-to}}
-            <a href="#" {{action 'exportData'}} class="gh-btn gh-btn-hover-blue mr2"><span>Export CSV</span></a>
-            {{#link-to "subscribers.new" class="gh-btn gh-btn-green" data-test-link="add-subscriber"}}<span>Add Subscriber</span>{{/link-to}}
+            {{#link-to "subscribers.import" class="gh-btn gh-btn-hover-green mr2" data-test-link="import-csv"}}<span>{{t "Import CSV"}}</span>{{/link-to}}
+            <a href="#" {{action 'exportData'}} class="gh-btn gh-btn-hover-blue mr2"><span>{{t "Export CSV"}}</span></a>
+            {{#link-to "subscribers.new" class="gh-btn gh-btn-green" data-test-link="add-subscriber"}}<span>{{t "Add Subscriber"}}</span>{{/link-to}}
         </div>
     </header>
 
@@ -25,19 +25,19 @@
                         <th class="gh-subscribers-table-email-cell">
                             {{#link-to class="inline-flex items-center darkgrey" params=(subscribers-query-params "email" this.order this.direction)}}
                                 {{subscribers-sort-icon "email" this.order this.direction}}
-                                Email Address
+                                {{t "Email Address"}}
                             {{/link-to}}
                         </th>
                         <th class="gh-subscribers-table-date-cell">
                             {{#link-to class="inline-flex items-center darkgrey" params=(subscribers-query-params "created_at" this.order this.direction)}}
                                 {{subscribers-sort-icon "created_at" this.order this.direction}}
-                                Subscription Date
+                                {{t "Subscription Date"}}
                             {{/link-to}}
                         </th>
                         <th class="gh-subscribers-table-status-cell">
                             {{#link-to class="inline-flex items-center darkgrey" params=(subscribers-query-params "status" this.order this.direction)}}
                                 {{subscribers-sort-icon "status" this.order this.direction}}
-                                Status
+                                {{t "Status"}}
                             {{/link-to}}
                         </th>
                         <th class="gh-subscribers-table-delete-cell"></th>
@@ -77,7 +77,7 @@
                                     <div class="relative h50"><GhLoadingSpinner /></div>
                                 {{else}}
                                     {{!-- match height to delete button height for consistent spacing --}}
-                                    <span class="dib" style="line-height: 33px">No subscribers found.</span>
+                                    <span class="dib" style="line-height: 33px">{{t "No subscribers found."}}</span>
                                 {{/if}}
                             </td>
                         </tr>

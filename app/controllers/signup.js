@@ -15,6 +15,7 @@ export default Controller.extend({
     notifications: service(),
     session: service(),
     settings: service(),
+    intl: service(),
 
     flowErrors: '',
     profileImage: null,
@@ -56,7 +57,7 @@ export default Controller.extend({
         } catch (error) {
             // ValidationEngine throws undefined
             if (!error) {
-                this.set('flowErrors', 'Please fill out the form to complete your sign-up');
+                this.set('flowErrors', this.intl.t('Please fill out the form to complete your sign-up'));
                 return false;
             }
 

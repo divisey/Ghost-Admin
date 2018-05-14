@@ -1,9 +1,9 @@
 <section class="gh-canvas">
     <header class="gh-canvas-header">
         <h2 class="gh-canvas-title" data-test-screen-title>
-            {{#link-to "settings.integrations"}}Integrations{{/link-to}}
+            {{#link-to "settings.integrations"}}{{t "Integrations"}}{{/link-to}}
             <span>{{svg-jar "arrow-right"}}</span>
-            Zapier
+            {{t "Zapier"}}
         </h2>
     </header>
 
@@ -14,8 +14,8 @@
                 <img class="app-icon" src="assets/img/zapiericon.png" />
             </div>
             <div class="app-cell">
-                <h3>Zapier</h3>
-                <p>Automation for your favourite apps</p>
+                <h3>{{t "Zapier"}}</h3>
+                <p>{{t "Automation for your favourite apps"}}</p>
             </div>
         </section>
 
@@ -24,7 +24,7 @@
             <table class="ma0" style="table-layout: fixed">
                 <tbody>
                     <tr class="bb b--lightgrey">
-                        <td class="pa3 w50 fw7">Admin API Key</td>
+                        <td class="pa3 w50 fw7">{{t "Admin API Key"}}</td>
                         <td class="pa0">
                             <div class="pa3 relative truncate {{unless copyAdminKey.isRunning "hide-child-instant"}}">
                                 <span class="midgrey" data-test-text="admin-key">
@@ -34,9 +34,9 @@
                                     <div class="pt1 pr3 pb1 pl3 bg-black-70 child br3 f8 nudge-top--4 nudge-right--1">
                                         <button type="button" {{action (perform copyAdminKey)}} class="white fw4 flex items-center">
                                             {{#if copyAdminKey.isRunning}}
-                                                {{svg-jar "check-circle" class="w3 v-mid mr2"}} Copied
+                                                {{svg-jar "check-circle" class="w3 v-mid mr2"}} {{t "taskButton.Copied"}}
                                             {{else}}
-                                                Copy
+                                                {{t "taskButton.Copy"}}
                                             {{/if}}
                                         </button>
                                     </div>
@@ -45,7 +45,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="pa3 w50 fw7">API URL</td>
+                        <td class="pa3 w50 fw7">{{t "API URL"}}</td>
                         <td class="pa0 truncate">
                             <div class="pa3 relative truncate {{unless copyApiUrl.isRunning "hide-child-instant"}}">
                                 <span class="midgrey" data-test-text="api-url">
@@ -55,9 +55,9 @@
                                     <div class="pt1 pr3 pb1 pl3 bg-black-70 child br3 f8 nudge-top--4 nudge-right--1">
                                         <button type="button" {{action (perform copyApiUrl)}} class="white fw4 flex items-center">
                                             {{#if copyApiUrl.isRunning}}
-                                                {{svg-jar "check-circle" class="w3 v-mid mr2"}} Copied
+                                                {{svg-jar "check-circle" class="w3 v-mid mr2"}} {{t "taskButton.Copied"}}
                                             {{else}}
-                                                Copy
+                                                {{t "taskButton.Copy"}}
                                             {{/if}}
                                         </button>
                                     </div>
@@ -72,8 +72,8 @@
 
         <div class="mt12" id="zapier-toggle">
             <div class="gh-setting-content gh-setting-content--no-action">
-                <div class="gh-setting-title">Zapier Templates</div>
-                <div class="gh-setting-desc mt1">Explore pre-built templates for common automation tasks</div>
+                <div class="gh-setting-title">{{t "Zapier Templates"}}</div>
+                <div class="gh-setting-desc mt1">{{t "Explore pre-built templates for common automation tasks"}}</div>
                 <div class="gh-setting-content-extended">
                     <div id="zapier-templates">
                         {{!-- we don't want the script loading during tests because it errors --}}

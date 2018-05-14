@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {isBlank} from '@ember/utils';
 import {reads} from '@ember/object/computed';
+import {inject as service} from '@ember/service';
 import {task, timeout} from 'ember-concurrency';
 
 /**
@@ -16,6 +17,8 @@ import {task, timeout} from 'ember-concurrency';
  * component is removed from the DOM
  */
 const GhTaskButton = Component.extend({
+    intl: service(),
+
     tagName: 'button',
     classNameBindings: [
         'isRunning:appear-disabled',
@@ -29,12 +32,9 @@ const GhTaskButton = Component.extend({
     task: null,
     disabled: false,
     defaultClick: false,
-    buttonText: 'Save',
     idleClass: '',
     runningClass: '',
-    successText: 'Saved',
     successClass: 'gh-btn-green',
-    failureText: 'Retry',
     failureClass: 'gh-btn-red',
 
     // Allowed actions
@@ -42,6 +42,17 @@ const GhTaskButton = Component.extend({
 
     isRunning: reads('task.last.isRunning'),
     runningText: reads('buttonText'),
+
+    failureText: computed('intl.locale', function () {
+        return this.intl.t('taskButton.Retry');
+    }),
+    successText: computed('intl.locale', function () {
+        return this.intl.t('taskButton.Saved');
+    }),
+
+    buttonText: computed('intl.locale', function () {
+        return this.intl.t('taskButton.Save');
+    }),
 
     // hasRun is needed so that a newly rendered button does not show the last
     // state of the associated task

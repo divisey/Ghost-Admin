@@ -1,6 +1,6 @@
 <section class="gh-canvas">
     <header class="gh-canvas-header">
-        <h2 class="gh-canvas-title" data-test-screen-title>Integrations</h2>
+        <h2 class="gh-canvas-title" data-test-screen-title>{{t "Integrations"}}</h2>
     </header>
 
     <div class="integrations-directory">
@@ -57,7 +57,7 @@
     <section class="apps-grid-container">
 
         {{!-- TODO: move fully to spirit and normalize spacing --}}
-        <span class="apps-grid-title pb2">Built-in integrations</span>
+        <span class="apps-grid-title pb2">{{t "Built-in integrations"}}</span>
         <div class="apps-grid">
             <div class="apps-grid-cell" data-test-app="zapier">
                 {{#link-to "settings.integrations.zapier" data-test-link="zapier"}}
@@ -65,13 +65,13 @@
                     <div class="apps-card-left">
                         <figure class="apps-card-app-icon" style="background-image:url(assets/img/zapiericon.png);background-size:45px;"></figure>
                         <div class="apps-card-meta">
-                            <h3 class="apps-card-app-title">Zapier</h3>
-                            <p class="apps-card-app-desc">Automation for your favourite apps</p>
+                            <h3 class="apps-card-app-title">{{t "Zapier"}}</h3>
+                            <p class="apps-card-app-desc">{{t "Automation for your favourite apps"}}</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
                         <div class="apps-configured">
-                            <span data-test-app-status>Configure</span>
+                            <span data-test-app-status>{{t "common.Configure"}}</span>
                             {{svg-jar "arrow-right"}}
                         </div>
                     </div>
@@ -85,16 +85,16 @@
                     <div class="apps-card-left">
                         <figure class="apps-card-app-icon" style="background-image:url(assets/img/slackicon.png)"></figure>
                         <div class="apps-card-meta">
-                            <h3 class="apps-card-app-title">Slack</h3>
-                            <p class="apps-card-app-desc">A messaging app for teams</p>
+                            <h3 class="apps-card-app-title">{{t "Slack"}}</h3>
+                            <p class="apps-card-app-desc">{{t "A messaging app for teams"}}</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
                         <div class="apps-configured">
                             {{#if settings.slack.isActive}}
-                                <span class="green" data-test-app-status>Active</span>
+                                <span class="green" data-test-app-status>{{t "common.Active"}}</span>
                             {{else}}
-                                <span data-test-app-status>Configure</span>
+                                <span data-test-app-status>{{t "common.Configure"}}</span>
                             {{/if}}
                             {{svg-jar "arrow-right"}}
                         </div>
@@ -109,16 +109,16 @@
                     <div class="apps-card-left">
                         <figure class="apps-card-app-icon" style="background-image:url(assets/img/ampicon.png)"></figure>
                         <div class="apps-card-meta">
-                            <h3 class="apps-card-app-title">AMP</h3>
-                            <p class="apps-card-app-desc">Google Accelerated Mobile Pages</p>
+                            <h3 class="apps-card-app-title">{{t "AMP"}}</h3>
+                            <p class="apps-card-app-desc">{{t "Google Accelerated Mobile Pages"}}</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
                         <div class="apps-configured">
                             {{#if settings.amp}}
-                                <span class="green" data-test-app-status>Active</span>
+                                <span class="green" data-test-app-status>{{t "common.Active"}}</span>
                             {{else}}
-                                <span data-test-app-status>Configure</span>
+                                <span data-test-app-status>{{t "common.Configure"}}</span>
                             {{/if}}
                             {{svg-jar "arrow-right"}}
                         </div>
@@ -133,16 +133,16 @@
                     <div class="apps-card-left">
                         <figure class="apps-card-app-icon" style="background-image:url(assets/icons/unsplash.svg);background-size:38px;"></figure>
                         <div class="apps-card-meta">
-                            <h3 class="apps-card-app-title">Unsplash</h3>
-                            <p class="apps-card-app-desc">Beautiful, free photos</p>
+                            <h3 class="apps-card-app-title">{{t "Unsplash"}}</h3>
+                            <p class="apps-card-app-desc">{{t "Beautiful, free photos"}}</p>
                         </div>
                     </div>
                     <div class="gh-card-right">
                         <div class="apps-configured">
                             {{#if settings.unsplash.isActive}}
-                                <span class="green" data-test-app-status>Active</span>
+                                <span class="green" data-test-app-status>{{t "common.Active"}}</span>
                             {{else}}
-                                <span data-test-app-status>Configure</span>
+                                <span data-test-app-status>{{t "common.Configure"}}</span>
                             {{/if}}
                             {{svg-jar "arrow-right"}}
                         </div>
@@ -150,14 +150,12 @@
                 </article>
                 {{/link-to}}
             </div>
-
-
         </div>
     </section>
 
     <section class="apps-grid-container pt6">
 
-        <span class="apps-grid-title pb2">Custom integrations</span>
+        <span class="apps-grid-title pb2">{{t "Custom integrations"}}</span>
         <div class="apps-grid">
             {{#each integrations as |integration|}}
                 <div class="apps-grid-cell" data-test-custom-integration>
@@ -180,7 +178,7 @@
                             </div>
                             <div class="gh-card-right">
                                 <div class="apps-configured">
-                                    <span>Configure</span>
+                                    <span>{{t "common.Configure"}}</span>
                                     {{svg-jar "arrow-right"}}
                                 </div>
                             </div>
@@ -194,12 +192,12 @@
                     {{else}}
                         <div class="flex flex-column items-center pa5 pt15 pb15">
                             <p class="ma0 pa0 tc midgrey lh-title mt2">
-                                Create your own custom Ghost integrations with dedicated API keys & webhooks
+                                {{t "Create your own custom Ghost integrations with dedicated API keys & webhooks"}}
                             </p>
                             {{#link-to "settings.integrations.new" class="" data-test-button="new-integration"}}
                                 <div class="flex items-center pa2 pt1">
                                     {{svg-jar "add" class="w3 h3 fill-blue-d1"}}
-                                    <span class="db ml1 blue nudge-bottom--1">Add custom integration</span>
+                                    <span class="db ml1 blue nudge-bottom--1">{{t "Add custom integration"}}</span>
                                 </div>
                             {{/link-to}}
                         </div>
@@ -213,7 +211,7 @@
                 <article class="apps-card-app">
                     <div class="flex items-center">
                         {{svg-jar "add" class="w3 h3 fill-blue-d1"}}
-                        <span class="db ml1 blue nudge-bottom--1 fw4">Add custom integration</span>
+                        <span class="db ml1 blue nudge-bottom--1 fw4">{{t "Add custom integration"}}</span>
                     </div>
                 </article>
                 {{/link-to}}

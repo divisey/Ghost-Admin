@@ -19,8 +19,8 @@ function isJSONContentType(header) {
 /* Version mismatch error */
 
 export class VersionMismatchError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'API server is running a newer version of Ghost, please upgrade.');
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -35,8 +35,8 @@ export function isVersionMismatchError(errorOrStatus, payload) {
 /* Server unreachable error */
 
 export class ServerUnreachableError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'Server was unreachable');
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -51,8 +51,8 @@ export function isServerUnreachableError(error) {
 /* Request entity too large error */
 
 export class RequestEntityTooLargeError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'Request is larger than the maximum file size the server allows');
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -66,9 +66,9 @@ export function isRequestEntityTooLargeError(errorOrStatus) {
 
 /* Unsupported media type error */
 
-export class UnsupportedMediaTypeError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'Request contains an unknown or unsupported file type.');
+class UnsupportedMediaTypeError extends AjaxError {
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -83,8 +83,8 @@ export function isUnsupportedMediaTypeError(errorOrStatus) {
 /* Maintenance error */
 
 export class MaintenanceError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'Ghost is currently undergoing maintenance, please wait a moment then retry.');
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -99,8 +99,8 @@ export function isMaintenanceError(errorOrStatus) {
 /* Theme validation error */
 
 export class ThemeValidationError extends AjaxError {
-    constructor(payload) {
-        super(payload, 'Theme is not compatible or contains errors.');
+    constructor(payload, msg) {
+        super(payload, msg);
     }
 }
 
@@ -116,6 +116,7 @@ export function isThemeValidationError(errorOrStatus, payload) {
 
 let ajaxService = AjaxService.extend({
     session: service(),
+    intl: service(),
 
     isTesting: undefined,
 
@@ -161,17 +162,17 @@ let ajaxService = AjaxService.extend({
 
     handleResponse(status, headers, payload, request) {
         if (this.isVersionMismatchError(status, headers, payload)) {
-            return new VersionMismatchError(payload);
+            return new VersionMismatchError(payload, this.intl.t('API server is running a newer version of Ghost, please upgrade.'));
         } else if (this.isServerUnreachableError(status, headers, payload)) {
-            return new ServerUnreachableError(payload);
+            return new ServerUnreachableError(payload, this.intl.t('Server was unreachable'));
         } else if (this.isRequestEntityTooLargeError(status, headers, payload)) {
-            return new RequestEntityTooLargeError(payload);
+            return new RequestEntityTooLargeError(payload, this.intl.t('Request is larger than the maximum file size the server allows'));
         } else if (this.isUnsupportedMediaTypeError(status, headers, payload)) {
-            return new UnsupportedMediaTypeError(payload);
+            return new UnsupportedMediaTypeError(payload, this.intl.t('Request contains an unknown or unsupported file type.'));
         } else if (this.isMaintenanceError(status, headers, payload)) {
-            return new MaintenanceError(payload);
+            return new MaintenanceError(payload, this.intl.t('Ghost is currently undergoing maintenance, please wait a moment then retry.'));
         } else if (this.isThemeValidationError(status, headers, payload)) {
-            return new ThemeValidationError(payload);
+            return new ThemeValidationError(payload, this.intl.t('Theme is not compatible or contains errors.'));
         }
 
         let isGhostRequest = GHOST_REQUEST.test(request.url);

@@ -2,6 +2,7 @@ import AuthenticatedRoute from 'ghost-admin/routes/authenticated';
 import {inject as service} from '@ember/service';
 
 export default AuthenticatedRoute.extend({
+    intl: service(),
     config: service(),
 
     // redirect to posts screen if:
@@ -29,7 +30,7 @@ export default AuthenticatedRoute.extend({
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Members'
+            titleToken: this.intl.t('pageTitle.Members')
         };
     }
 });

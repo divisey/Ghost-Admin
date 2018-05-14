@@ -9,6 +9,7 @@ import {task} from 'ember-concurrency';
 export default ModalComponent.extend({
     config: service(),
     router: service(),
+    intl: service(),
 
     availableEvents: null,
     error: null,
@@ -21,7 +22,7 @@ export default ModalComponent.extend({
 
     init() {
         this._super(...arguments);
-        this.availableEvents = AVAILABLE_EVENTS;
+        this.availableEvents = AVAILABLE_EVENTS.map(e => Object.assign({}, e, {name: this.intl.t(`event.${e.event}`)}));
     },
 
     didReceiveAttrs() {

@@ -7,11 +7,11 @@ export default BaseValidator.create({
 
     name(model) {
         if (isBlank(model.name)) {
-            model.errors.add('name', 'Please enter a name');
+            model.errors.add('name', this.t('validation.Please enter a name.'));
             model.hasValidated.pushObject('name');
             this.invalidate();
         } else if (!validator.isLength(model.name, 0, 191)) {
-            model.errors.add('name', 'Name is too long, max 191 chars');
+            model.errors.add('name', this.t('validation.Name is too long, max 191 chars'));
             model.hasValidated.pushObject('name');
             this.invalidate();
         }
@@ -19,7 +19,7 @@ export default BaseValidator.create({
 
     event(model) {
         if (isBlank(model.event)) {
-            model.errors.add('event', 'Please select an event');
+            model.errors.add('event', this.t('validation.Please select an event'));
             model.hasValidated.pushObject('event');
             this.invalidate();
         }
@@ -27,11 +27,11 @@ export default BaseValidator.create({
 
     targetUrl(model) {
         if (isBlank(model.targetUrl)) {
-            model.errors.add('targetUrl', 'Please enter a target URL');
+            model.errors.add('targetUrl', this.t('validation.Please enter a target URL'));
         } else if (!validator.isURL(model.targetUrl || '', {require_protocol: false})) {
-            model.errors.add('targetUrl', 'Please enter a valid URL');
+            model.errors.add('targetUrl', this.t('validation.Please enter a valid URL'));
         } else if (!validator.isLength(model.targetUrl, 0, 2000)) {
-            model.errors.add('targetUrl', 'Target URL is too long, max 2000 chars');
+            model.errors.add('targetUrl', this.t('validation.Target URL is too long, max 2000 chars'));
         }
 
         model.hasValidated.pushObject('targetUrl');

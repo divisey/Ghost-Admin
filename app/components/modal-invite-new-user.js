@@ -10,6 +10,7 @@ const {Promise} = RSVP;
 export default ModalComponent.extend(ValidationEngine, {
     notifications: service(),
     store: service(),
+    intl: service(),
 
     classNames: 'modal-content invite-new-user',
 
@@ -62,9 +63,9 @@ export default ModalComponent.extend(ValidationEngine, {
             if (existingUser || existingInvite) {
                 this.errors.clear('email');
                 if (existingUser) {
-                    this.errors.add('email', 'A user with that email address already exists.');
+                    this.errors.add('email', this.intl.t('validation.A user with that email address already exists.'));
                 } else {
-                    this.errors.add('email', 'A user with that email address was already invited.');
+                    this.errors.add('email', this.intl.t('validation.A user with that email address was already invited.'));
                 }
 
                 // TODO: this shouldn't be needed, ValidationEngine doesn't mark
@@ -98,7 +99,8 @@ export default ModalComponent.extend(ValidationEngine, {
         let email = this.email;
         let role = this.role;
         let notifications = this.notifications;
-        let notificationText = `Invitation sent! (${email})`;
+        let notificationText = this.intl.t('Invitation sent! ({email})', {email});
+
         let invite;
 
         try {
@@ -114,7 +116,7 @@ export default ModalComponent.extend(ValidationEngine, {
             // If sending the invitation email fails, the API will still return a status of 201
             // but the invite's status in the response object will be 'invited-pending'.
             if (invite.get('status') === 'pending') {
-                notifications.showAlert('Invitation email was not sent.  Please try resending.', {type: 'error', key: 'invite.send.failed'});
+                notifications.showAlert(this.intl.t('Invitation email was not sent.  Please try resending.'), {type: 'error', key: 'invite.send.failed'});
             } else {
                 notifications.showNotification(notificationText, {key: 'invite.send.success'});
             }

@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import EmberObject from '@ember/object';
 import Route from '@ember/routing/route';
 import UnauthenticatedRouteMixin from 'ghost-admin/mixins/unauthenticated-route-mixin';
+import {inject as service} from '@ember/service';
 
 const {Errors} = DS;
 
@@ -14,6 +15,8 @@ const defaultModel = function defaultModel() {
 };
 
 export default Route.extend(UnauthenticatedRouteMixin, {
+    intl: service(),
+
     model() {
         return defaultModel();
     },
@@ -30,7 +33,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Sign In',
+            titleToken: this.intl.t('pageTitle.Sign In'),
             bodyClasses: ['unauthenticated-route']
         };
     }

@@ -5,6 +5,7 @@ import {inject as service} from '@ember/service';
 export default AuthenticatedRoute.extend(CurrentUserSettings, {
     infinity: service(),
     session: service(),
+    intl: service(),
 
     model() {
         return this.session.user;
@@ -23,7 +24,7 @@ export default AuthenticatedRoute.extend(CurrentUserSettings, {
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: 'Staff'
+            titleToken: this.intl.t('pageTitle.Staff')
         };
     }
 });

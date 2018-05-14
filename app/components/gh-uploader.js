@@ -44,6 +44,7 @@ const UploadTracker = EmberObject.extend({
 
 export default Component.extend({
     ajax: service(),
+    intl: service(),
 
     tagName: '',
 
@@ -181,7 +182,7 @@ export default Component.extend({
 
         if (!extension || extensions.indexOf(extension.toLowerCase()) === -1) {
             let validExtensions = `.${extensions.join(', .').toUpperCase()}`;
-            return `The file type you uploaded is not supported. Please use ${validExtensions}`;
+            return this.intl.t('The file type you uploaded is not supported. Please use {validExtensions}', {validExtensions});
         }
 
         return true;

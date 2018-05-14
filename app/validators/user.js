@@ -18,10 +18,10 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
 
         if (this.isActive(model)) {
             if (isBlank(name)) {
-                model.get('errors').add('name', 'Please enter a name.');
+                model.get('errors').add('name', this.t('validation.Please enter a name.'));
                 this.invalidate();
             } else if (!validator.isLength(name, 0, 191)) {
-                model.get('errors').add('name', 'Name is too long');
+                model.get('errors').add('name', this.t('validation.Name is too long'));
                 this.invalidate();
             }
         }
@@ -32,7 +32,7 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
 
         if (this.isActive(model)) {
             if (!validator.isLength(bio || '', 0, 200)) {
-                model.get('errors').add('bio', 'Bio is too long');
+                model.get('errors').add('bio', this.t('validation.Bio is too long'));
                 this.invalidate();
             }
         }
@@ -42,12 +42,12 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
         let email = model.get('email');
 
         if (!validator.isEmail(email || '')) {
-            model.get('errors').add('email', 'Please supply a valid email address');
+            model.get('errors').add('email', this.t('validation.Please supply a valid email address'));
             this.invalidate();
         }
 
         if (!validator.isLength(email || '', 0, 191)) {
-            model.get('errors').add('email', 'Email is too long');
+            model.get('errors').add('email', this.t('validation.Email is too long'));
             this.invalidate();
         }
     },
@@ -57,7 +57,7 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
 
         if (this.isActive(model)) {
             if (!validator.isLength(location || '', 0, 150)) {
-                model.get('errors').add('location', 'Location is too long');
+                model.get('errors').add('location', this.t('validation.Location is too long'));
                 this.invalidate();
             }
         }
@@ -71,7 +71,7 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
 
         if (this.isActive(model)) {
             if (!isBlank(website) && isInvalidWebsite) {
-                model.get('errors').add('website', 'Website is not a valid url');
+                model.get('errors').add('website', this.t('validation.Website is not a valid url'));
                 this.invalidate();
             }
         }
@@ -82,7 +82,7 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
             let roles = model.get('roles');
 
             if (roles.length < 1) {
-                model.get('errors').add('role', 'Please select a role');
+                model.get('errors').add('role', this.t('validation.Please select a role'));
                 this.invalidate();
             }
         }
@@ -98,11 +98,11 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
         model.get('hasValidated').addObject('ne2Password');
 
         if (isBlank(newPassword) && isBlank(ne2Password)) {
-            model.get('errors').add('newPassword', 'Sorry, passwords can\'t be blank');
+            model.get('errors').add('newPassword', this.t('validation.Sorry, passwords can\'t be blank'));
             this.invalidate();
         } else {
             if (!validator.equals(newPassword, ne2Password || '')) {
-                model.get('errors').add('ne2Password', 'Your new passwords do not match');
+                model.get('errors').add('ne2Password', this.t('validation.Your new passwords do not match'));
                 this.invalidate();
             }
 
@@ -120,7 +120,7 @@ const userValidator = BaseValidator.extend(PasswordValidatorMixin, {
         model.get('hasValidated').addObject('password');
 
         if (isBlank(oldPassword)) {
-            model.get('errors').add('password', 'Your current password is required to set a new one');
+            model.get('errors').add('password', this.t('validation.Your current password is required to set a new one'));
             this.invalidate();
         }
     }

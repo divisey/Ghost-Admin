@@ -18,6 +18,7 @@ const DEFAULTS = {
 export default ModalComponent.extend({
     eventBus: service(),
     store: service(),
+    intl: service(),
 
     accept: null,
     extensions: null,
@@ -74,7 +75,7 @@ export default ModalComponent.extend({
             }
 
             if (file.name.match(/^casper\.zip$/i)) {
-                return {payload: {errors: [{message: 'Sorry, the default Casper theme cannot be overwritten.<br>Please rename your zip file and try again.'}]}};
+                return {payload: {errors: [{message: this.intl.t('Sorry, the default Casper theme cannot be overwritten.<br>Please rename your zip file and try again.')}]}};
             }
 
             if (!this._allowOverwrite && currentThemeNames.includes(themeName)) {

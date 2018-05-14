@@ -2,7 +2,7 @@
     <form class="mb15" {{action (perform "save") on="submit"}}>
         <header class="gh-canvas-header">
             <h2 class="gh-canvas-title" data-test-screen-title>
-                {{#link-to "settings.integrations" data-test-link="integrations-back"}}Integrations{{/link-to}}
+                {{#link-to "settings.integrations" data-test-link="integrations-back"}}{{t "Integrations"}}{{/link-to}}
                 <span>{{svg-jar "arrow-right"}}</span>
                 {{integration.name}}
             </h2>
@@ -36,7 +36,7 @@
                                 class="child absolute top-0 left-0 w-100 h-100 br4 b white text-center bg-black-70 f8"
                                 {{action "triggerIconFileDialog"}}
                             >
-                                Upload
+                                {{t "common.Upload"}}
                             </button>
                         {{/if}}
                         <div style="display:none">
@@ -57,7 +57,7 @@
                     hasValidated=integration.hasValidated
                     property="name"
                 }}
-                    <label for="integration_name">Name</label>
+                    <label for="integration_name">{{t "Name"}}</label>
                     {{gh-text-input
                         id="integration_name"
                         class="gh-input mt1 mb1"
@@ -76,7 +76,7 @@
                     hasValidated=integration.hasValidated
                     property="decription"
                 }}
-                    <label for="integration_description" class="mt3">Description</label>
+                    <label for="integration_description" class="mt3">{{t "Description"}}</label>
                     {{gh-text-input
                         id="integration_description"
                         class="gh-input mt1"
@@ -96,7 +96,7 @@
         <table class="ma0" style="table-layout: fixed">
             <tbody>
                 <tr class="bb b--lightgrey">
-                    <td class="pa3 w50 fw7">Content API Key</td>
+                    <td class="pa3 w50 fw7">{{t "Content API Key"}}</td>
                     <td class="pa0 truncate">
                         <div class="pa3 relative truncate {{unless copyContentKey.isRunning "hide-child-instant"}}">
                             <span class="midgrey" data-test-text="content-key">
@@ -106,9 +106,9 @@
                                 <div class="pt1 pr3 pb1 pl3 bg-black-70 child br3 f8 nudge-top--4 nudge-right--5">
                                     <button type="button" {{action (perform copyContentKey)}} class="white fw4 flex items-center">
                                         {{#if copyContentKey.isRunning}}
-                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} Copied
+                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} {{t "taskButton.Copied"}}
                                         {{else}}
-                                            Copy
+                                            {{t "taskButton.Copy"}}
                                         {{/if}}
                                     </button>
                                 </div>
@@ -117,7 +117,7 @@
                     </td>
                 </tr>
                 <tr class="bb b--lightgrey">
-                    <td class="pa3 w50 fw7">Admin API Key</td>
+                    <td class="pa3 w50 fw7">{{t "Admin API Key"}}</td>
                     <td class="pa0">
                         <div class="pa3 relative truncate {{unless copyAdminKey.isRunning "hide-child-instant"}}">
                             <span class="midgrey" data-test-text="admin-key">
@@ -127,9 +127,9 @@
                                 <div class="pt1 pr3 pb1 pl3 bg-black-70 child br3 f8 nudge-top--4 nudge-right--1">
                                     <button type="button" {{action (perform copyAdminKey)}} class="white fw4 flex items-center">
                                         {{#if copyAdminKey.isRunning}}
-                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} Copied
+                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} {{t "taskButton.Copied"}}
                                         {{else}}
-                                            Copy
+                                            {{t "taskButton.Copy"}}
                                         {{/if}}
                                     </button>
                                 </div>
@@ -138,7 +138,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="pa3 w50 fw7">API URL</td>
+                    <td class="pa3 w50 fw7">{{t "API URL"}}</td>
                     <td class="pa0 truncate">
                         <div class="pa3 relative truncate {{unless copyApiUrl.isRunning "hide-child-instant"}}">
                             <span class="midgrey" data-test-text="api-url">
@@ -148,9 +148,9 @@
                                 <div class="pt1 pr3 pb1 pl3 bg-black-70 child br3 f8 nudge-top--4 nudge-right--1">
                                     <button type="button" {{action (perform copyApiUrl)}} class="white fw4 flex items-center">
                                         {{#if copyApiUrl.isRunning}}
-                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} Copied
+                                            {{svg-jar "check-circle" class="w3 v-mid mr2"}} {{t "taskButton.Copied"}}
                                         {{else}}
-                                            Copy
+                                            {{t "taskButton.Copy"}}
                                         {{/if}}
                                     </button>
                                 </div>
@@ -162,15 +162,15 @@
         </table>
     </div>
 
-    <h4 class="mt15 midgrey f7 fw4">Webhooks</h4>
+    <h4 class="mt15 midgrey f7 fw4">{{t "Webhooks"}}</h4>
     <div class="ba br3 b--lightgrey mt4">
         <table class="ma0 w-100">
             <thead>
                 <tr>
-                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 br--top br--left fw6">Name</th>
-                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">Event</th>
-                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">URL</th>
-                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">Last triggered</th>
+                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 br--top br--left fw6">{{t "Name"}}</th>
+                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">{{t "Event"}}</th>
+                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">{{t "URL"}}</th>
+                    <th class="pa2 pl3 midlightgrey fw4 f8 bg-whitegrey-l2 br3 fw6">{{t "Last triggered"}}</th>
                     <th class="pa2 pl3 bg-whitegrey-l2 br3 br--top br--right"></th>
                 </tr>
             </thead>
@@ -180,7 +180,7 @@
                         <td class="pa2 pl3" data-test-text="name">{{webhook.name}}</td>
                         <td class="pa2 pl3" data-test-text="event">{{event-name webhook.event}}</td>
                         <td class="pa2 pl3" data-test-text="targetUrl">{{webhook.targetUrl}}</td>
-                        <td class="pa2 pl3" data-test-text="last-triggered">{{or webhook.lastTriggeredAtUTC "Not triggered"}}</td>
+                        <td class="pa2 pl3" data-test-text="last-triggered">{{or webhook.lastTriggeredAtUTC (t "Not triggered")}}</td>
                         <td class="w1 pa2 pl3 nowrap">
                             <div class="child flex items-center">
                                 {{#link-to "settings.integration.webhooks.edit" integration webhook data-test-link="edit-webhook"}}
@@ -197,13 +197,13 @@
                     <td colspan="5" class="pa5 pt15 pb15 tc midgrey f7">
                         <div class="flex flex-column items-center">
                             <p class="ma0 pa0 tc midgrey lh-title mt2">
-                                No webhooks configured
+                                {{t "No webhooks configured"}}
                             </p>
                             {{#link-to "settings.integration.webhooks.new" integration classNames="flex items-center"
                             data-test-link="add-webhook"}}
                             <div class="flex items-center pa2 pt1">
                                 {{svg-jar "add" class="w3 h3 fill-blue-d1"}}
-                                <span class="ml1 blue">Add webhook</span>
+                                <span class="ml1 blue">{{t "Add webhook"}}</span>
                             </div>
                             {{/link-to}}
                         </div>
@@ -219,7 +219,7 @@
                         data-test-link="add-webhook"}}
                         <div class="pa3 f7">
                             {{svg-jar "add" class="w3 h3 fill-blue-d1"}}
-                            <span class="ml1 blue">Add webhook</span>
+                            <span class="ml1 blue">{{t "Add webhook"}}</span>
                         </div>
                         {{/link-to}}
                     </td>
@@ -229,7 +229,7 @@
         </table>
     </div>
     <button class="gh-btn gh-btn-red gh-btn-icon mb15 mt15" {{action "confirmIntegrationDeletion"}}>
-        <span> Delete Integration </span>
+        <span> {{t "Delete Integration"}} </span>
     </button>
 </section>
 

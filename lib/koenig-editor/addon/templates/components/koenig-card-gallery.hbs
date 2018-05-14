@@ -63,21 +63,21 @@
                 <div class="relative miw-100 flex items-center {{if (is-empty imageRows) "kg-media-placeholder ba b--whitegrey" "absolute absolute--fill bg-white-50"}}">
                     {{#if isDraggedOver}}
                         <span class="db center sans-serif fw7 f7 middarkgrey">
-                            Drop 'em like it's hot 🔥
+                            {{t "koenig.gallery.Drop 'em like it's hot 🔥"}}
                         </span>
                     {{else if uploader.isUploading}}
                         {{uploader.progressBar}}
                     {{else if (is-empty imageRows)}}
                         <button class="flex flex-column items-center center sans-serif fw4 f7 middarkgrey pa8 pt6 pb6 kg-image-button" onclick={{action "triggerFileDialog"}}>
                             {{svg-jar "gallery-placeholder" class="kg-placeholder-gallery nudge-bottom--10"}}
-                            <span class="mt2 midgrey">Click to select up to 9 images</span>
+                            <span class="mt2 midgrey">{{t "koenig.gallery.Click to select up to 9 images"}}</span>
                         </button>
                     {{/if}}
                 </div>
             {{else if isDraggedOver}}
                 <div class="absolute absolute--fill flex items-center bg-black-60 pe-none">
                     <span class="db center sans-serif fw7 f7 white">
-                        Drop to add up to 9 images
+                        {{t "koenig.gallery.Drop to add up to 9 images"}}
                     </span>
                 </div>
             {{/if}}
@@ -87,7 +87,7 @@
                     <span class="db center sans-serif fw7 f7 pl2 pr2 bg-red white">
                         {{errorMessage}}.
                         <button onclick={{action "clearErrorMessage"}} style="text-decoration: underline !important">
-                            Dismiss
+                            {{t "koenig.gallery.Dismiss"}}
                         </button>
                     </span>
                 </div>
@@ -103,7 +103,7 @@
         {{card.captionInput
             caption=payload.caption
             update=(action "updateCaption")
-            placeholder="Type caption for gallery (optional)"
+            placeholder=(t "koenig.gallery.Type caption for gallery (optional)")
         }}
     {{/if}}
 {{/koenig-card}}

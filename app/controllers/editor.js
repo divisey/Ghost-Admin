@@ -14,7 +14,7 @@ import {isVersionMismatchError} from 'ghost-admin/services/ajax';
 import {inject as service} from '@ember/service';
 import {task, taskGroup, timeout} from 'ember-concurrency';
 
-const DEFAULT_TITLE = '(Untitled)';
+const DEFAULT_TITLE = 'editor.(Untitled)';
 
 // time in ms to save after last content edit
 const AUTOSAVE_TIMEOUT = 3000;
@@ -36,49 +36,6 @@ PostModel.eachAttribute(function (name) {
     watchedProps.push(`post.${name}`);
 });
 
-const messageMap = {
-    errors: {
-        post: {
-            published: {
-                published: 'Update failed',
-                draft: 'Saving failed',
-                scheduled: 'Scheduling failed'
-            },
-            draft: {
-                published: 'Publish failed',
-                draft: 'Saving failed',
-                scheduled: 'Scheduling failed'
-            },
-            scheduled: {
-                scheduled: 'Update failed',
-                draft: 'Unscheduling failed',
-                published: 'Publish failed'
-            }
-
-        }
-    },
-
-    success: {
-        post: {
-            published: {
-                published: 'Updated.',
-                draft: 'Saved.',
-                scheduled: 'Scheduled.'
-            },
-            draft: {
-                published: 'Published!',
-                draft: 'Saved.',
-                scheduled: 'Scheduled.'
-            },
-            scheduled: {
-                scheduled: 'Updated.',
-                draft: 'Unscheduled.',
-                published: 'Published!'
-            }
-        }
-    }
-};
-
 export default Controller.extend({
     application: controller(),
     feature: service(),
@@ -87,6 +44,7 @@ export default Controller.extend({
     slugGenerator: service(),
     session: service(),
     ui: service(),
+    intl: service(),
 
     /* public properties -----------------------------------------------------*/
 
@@ -225,7 +183,7 @@ export default Controller.extend({
             let transition = this.leaveEditorTransition;
 
             if (!transition) {
-                this.notifications.showAlert('Sorry, there was an error in the application. Please let the Ghost team know what happened.', {type: 'error'});
+                this.notifications.showAlert(this.intl.t('Sorry, there was an error in the application. Please let the Ghost team know what happened.'), {type: 'error'});
                 return;
             }
 
@@ -321,7 +279,7 @@ export default Controller.extend({
 
         // Set a default title
         if (!this.get('post.titleScratch').trim()) {
-            this.set('post.titleScratch', DEFAULT_TITLE);
+            this.set('post.titleScratch', this.intl.t(DEFAULT_TITLE).toString());
         }
 
         this.set('post.title', this.get('post.titleScratch'));
@@ -345,7 +303,7 @@ export default Controller.extend({
             let post = yield this.post.save(options);
 
             if (!options.silent) {
-                this._showSaveNotification(prevStatus, post.get('status'), isNew ? true : false);
+                this._showSaveNotification(prevStatus, post.get('status'), isNew);
             }
 
             this.post.set('statusScratch', null);
@@ -464,7 +422,7 @@ export default Controller.extend({
 
         // generate a slug if a post is new and doesn't have a title yet or
         // if the title is still '(Untitled)'
-        if ((post.get('isNew') && !currentTitle) || currentTitle === DEFAULT_TITLE) {
+        if ((post.get('isNew') && !currentTitle) || currentTitle === this.intl.t(DEFAULT_TITLE).toString()) {
             yield this.generateSlug.perform();
         }
 
@@ -479,7 +437,7 @@ export default Controller.extend({
         let title = this.get('post.titleScratch');
 
         // Only set an "untitled" slug once per post
-        if (title === DEFAULT_TITLE && this.get('post.slug')) {
+        if (title === this.intl.t(DEFAULT_TITLE).toString() && this.get('post.slug')) {
             return;
         }
 
@@ -749,25 +707,25 @@ export default Controller.extend({
     },
 
     _showSaveNotification(prevStatus, status, delay) {
-        let message = messageMap.success.post[prevStatus][status];
+        let message = this.intl.t(`editor.success.post.${prevStatus}.${status}`);
         let notifications = this.notifications;
         let type, path;
 
         if (status === 'published') {
-            type = this.get('post.page') ? 'Page' : 'Post';
+            type = 'view';
             path = this.get('post.url');
         } else {
-            type = 'Preview';
+            type = 'preview';
             path = this.get('post.previewUrl');
         }
 
-        message += `&nbsp;<a href="${path}" target="_blank">View ${type}</a>`;
+        message += `&nbsp;<a href="${path}" target="_blank">${this.intl.t(`${this.get('post.displayName')}.notification.${type}`)}</a>`;
 
         notifications.showNotification(message.htmlSafe(), {delayed: delay});
     },
 
     _showErrorAlert(prevStatus, status, error, delay) {
-        let message = messageMap.errors.post[prevStatus][status];
+        let message = this.intl.t(`editor.errors.post.${prevStatus}.${status}`);
         let notifications = this.notifications;
         let errorMessage;
 
@@ -785,7 +743,7 @@ export default Controller.extend({
         } else if (error && error.payload && error.payload.errors && error.payload.errors[0].message) {
             return this.notifications.showAPIError(error, {key: 'post.save'});
         } else {
-            errorMessage = 'Unknown Error';
+            errorMessage = this.intl.t('Unknown Error');
         }
 
         message += `: ${errorMessage}`;

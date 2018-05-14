@@ -10,10 +10,12 @@ let generalShortcuts = {};
 generalShortcuts[`${ctrlOrCmd}+shift+p`] = 'publish';
 
 export default AuthenticatedRoute.extend(ShortcutsRoute, {
+
     feature: service(),
     notifications: service(),
     userAgent: service(),
     ui: service(),
+    intl: service(),
 
     classNames: ['editor'],
     shortcuts: generalShortcuts,
@@ -29,7 +31,7 @@ export default AuthenticatedRoute.extend(ShortcutsRoute, {
         // edge has known issues
         if (this.userAgent.browser.isEdge) {
             this.notifications.showAlert(
-                htmlSafe('Microsoft Edge is not currently supported. Please switch to <a href="https://ghost.org/downloads/" target="_blank" rel="noopener">Ghost Desktop</a> or a recent version of Chrome/Firefox/Safari.'),
+                htmlSafe(this.intl.t('koenig.Microsoft Edge is not currently supported. Please switch to <a href="https://ghost.org/downloads/" target="_blank" rel="noopener">Ghost Desktop</a> or a recent version of Chrome/Firefox/Safari.')),
                 {type: 'info', key: 'koenig.browserSupport'}
             );
         }
@@ -37,7 +39,7 @@ export default AuthenticatedRoute.extend(ShortcutsRoute, {
         // mobile browsers are not currently supported
         if (this.userAgent.device.isMobile || this.userAgent.device.isTablet) {
             this.notifications.showAlert(
-                htmlSafe('Mobile editing is not currently supported. Please use a desktop browser or <a href="https://ghost.org/downloads/" target="_blank" rel="noopener">Ghost Desktop</a>.'),
+                htmlSafe(this.intl.t('koenig.Mobile editing is not currently supported. Please use a desktop browser or <a href="https://ghost.org/downloads/" target="_blank" rel="noopener">Ghost Desktop</a>.')),
                 {type: 'info', key: 'koenig.browserSupport'}
             );
         }
@@ -84,7 +86,7 @@ export default AuthenticatedRoute.extend(ShortcutsRoute, {
     buildRouteInfoMetadata() {
         return {
             titleToken: () => {
-                return this.get('controller.post.title') || 'Editor';
+                return this.get('controller.post.title') || this.intl.t('pageTitle.Editor');
             }
         };
     },

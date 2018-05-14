@@ -1,4 +1,18 @@
-# Ghost-Admin
+# Ghost-Admin with translations support
+## Adding admin control panel translation
+0. use modified Ghost server https://github.com/ololoken/Ghost
+1. Set "General" > "Publication Language" locale you need, for example "ru"
+2. Add ru.json to public/assets/locales
+3. Rebuild Ghost-Admin
+4. That's it
+
+Translation instructions can be found [here](https://github.com/ember-intl)
+
+When your locale file cannot be found or processed, then default english locale will be used;
+Same when some translation key is missing or has an error it will fallback to key from english locale.
+
+#NOTE: TESTS are totally broken
+Maybe one day I'll try to fix it. But for now see no reason due to https://github.com/TryGhost/Ghost-Admin/pull/1017#issuecomment-420310841 
 
 [![Build Status](https://travis-ci.org/TryGhost/Ghost-Admin.svg?branch=master)](https://travis-ci.org/TryGhost/Ghost-Admin)
 

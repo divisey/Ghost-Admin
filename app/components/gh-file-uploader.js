@@ -21,12 +21,12 @@ export default Component.extend({
     ajax: service(),
     eventBus: service(),
     notifications: service(),
+    intl: service(),
 
     tagName: 'section',
     classNames: ['gh-image-uploader'],
     classNameBindings: ['dragClass'],
 
-    labelText: 'Select or drag-and-drop a file',
     url: null,
     paramName: 'file',
     accept: null,
@@ -46,6 +46,10 @@ export default Component.extend({
     uploadFinished: () => {},
     uploadSuccess: () => {},
     uploadFailed: () => {},
+
+    labelText: computed('intl.locale', function () {
+        return this.intl.t('Select or drag-and-drop a file');
+    }),
 
     formData: computed('file', function () {
         let paramName = this.paramName;
@@ -229,13 +233,13 @@ export default Component.extend({
         }
 
         if (isUnsupportedMediaTypeError(error)) {
-            message = 'The file type you uploaded is not supported.';
+            message = this.intl.t('The file type you uploaded is not supported.');
         } else if (isRequestEntityTooLargeError(error)) {
-            message = 'The file you uploaded was larger than the maximum file size your server allows.';
+            message = this.intl.t('The file you uploaded was larger than the maximum file size your server allows.');
         } else if (error.payload && error.payload.errors && !isBlank(error.payload.errors[0].message)) {
             message = htmlSafe(error.payload.errors[0].message);
         } else {
-            message = 'Something went wrong :(';
+            message = this.intl.t('Something went wrong :(');
         }
 
         this.set('failureMessage', message);

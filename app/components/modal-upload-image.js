@@ -8,6 +8,7 @@ import {task} from 'ember-concurrency';
 export default ModalComponent.extend({
     config: service(),
     notifications: service(),
+    intl: service(),
 
     model: null,
 
@@ -79,7 +80,7 @@ export default ModalComponent.extend({
     _validateUrl(url) {
         if (!isEmpty(url) && !cajaSanitizers.url(url)) {
             this._setErrorState(true);
-            return {message: 'Image URI is not valid'};
+            return {message: this.intl.t('Image URI is not valid')};
         }
 
         return true;
