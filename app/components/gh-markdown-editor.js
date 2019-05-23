@@ -46,8 +46,6 @@ export default Component.extend(ShortcutsMixin, {
     _isHemingwayMode: false,
     _isUploading: false,
     _showUnsplash: false,
-    _statusbar: null,
-    _toolbar: null,
     _uploadedImageUrls: null,
 
     // Closure actions
@@ -485,17 +483,6 @@ export default Component.extend(ShortcutsMixin, {
 
         toggleMarkdownHelp() {
             this.toggleProperty('showMarkdownHelp');
-        },
-
-        // put the toolbar/statusbar elements back so that SimpleMDE doesn't throw
-        // errors when it tries to remove them
-        destroyEditor() {
-            let container = this.element.querySelector('.gh-markdown-editor-pane');
-            if (container) {
-                container.appendChild(this._toolbar);
-                container.appendChild(this._statusbar);
-            }
-            this._editor = null;
         }
     },
 
