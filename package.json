@@ -1,6 +1,6 @@
 {
   "name": "ghost-admin",
-  "version": "2.23.0",
+  "version": "2.23.2",
   "description": "Ember.js admin client for Ghost",
   "author": "Ghost Foundation",
   "homepage": "http://ghost.org",
@@ -22,7 +22,7 @@
     "lint:js": "eslint ."
   },
   "engines": {
-    "node": ">= 6"
+    "node": "^8.9.0 || ^10.13.0"
   },
   "devDependencies": {
     "@ember/jquery": "0.6.0",
@@ -31,7 +31,7 @@
     "@tryghost/helpers": "1.1.4",
     "@tryghost/kg-clean-basic-html": "0.1.1",
     "@tryghost/kg-parser-plugins": "0.5.0",
-    "@tryghost/mobiledoc-kit": "0.11.2",
+    "@tryghost/mobiledoc-kit": "0.11.2-ghost.4",
     "@tryghost/timezone-data": "0.2.3",
     "autoprefixer": "9.5.1",
     "blueimp-md5": "2.10.0",
@@ -64,11 +64,11 @@
     "ember-cli-postcss": "4.2.0",
     "ember-cli-pretender": "3.1.1",
     "ember-cli-shims": "1.2.0",
-    "ember-cli-string-helpers": "2.0.0",
+    "ember-cli-string-helpers": "2.1.0",
     "ember-cli-test-loader": "2.2.0",
     "ember-cli-uglify": "3.0.0",
     "ember-composable-helpers": "2.3.1",
-    "ember-concurrency": "0.10.0",
+    "ember-concurrency": "1.0.0",
     "ember-data": "3.10.0",
     "ember-drag-drop": "0.4.8",
     "ember-exam": "3.0.1",
