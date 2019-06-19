@@ -51,7 +51,8 @@ export default Route.extend({
     buildRouteInfoMetadata() {
         return {
             titleToken: this.intl.t('pageTitle.Setup'),
-            bodyClasses: ['unauthenticated-route']
+            bodyClasses: ['unauthenticated-route'],
+            mainClasses: ['gh-main-white']
         };
     }
 });

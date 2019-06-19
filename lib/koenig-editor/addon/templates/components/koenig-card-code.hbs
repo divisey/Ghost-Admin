@@ -31,7 +31,7 @@
             type="text"
             value={{readonly payload.language}}
             onblur={{action (mut payload.language) value="target.value"}}
-            placeholder="Language..."
+            placeholder={{t "koenig.code.Language..."}}
             class="absolute w-20 pa1 ba b--lightgrey br2 f8 tracked-2 fw4 z-999 outline-0 anim-normal"
             style={{languageInputStyle}}
         />
@@ -52,7 +52,7 @@
             class="z-999"
             caption=payload.caption
             update=(action "updateCaption")
-            placeholder="Type caption for code block (optional)"
+            placeholder=(t "koenig.code.Type caption for code block (optional)")
         }}
     {{/if}}
 {{/koenig-card}}

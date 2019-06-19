@@ -26,7 +26,7 @@
                 {{card.captionInput
                     caption=payload.caption
                     update=(action "updateCaption")
-                    placeholder="Type caption for embed (optional)"
+                    placeholder=(t "koenig.embed.Type caption for embed (optional)")
                 }}
             {{/if}}
         </div>
@@ -37,9 +37,9 @@
             </div>
         {{else if hasError}}
             <div class="miw-100 flex flex-row pa2 pl3 ba br2 b--red-l3 red bg-error-red f7 fw4 lh-title h10 items-center">
-                <span class="mr3">There was an error when parsing the URL.</span>
-                <button type="button" class="red-d2 mr3 fw6 hover-red" {{action "retry"}}><span class="underline">Retry</span></button>
-                <button type="button" class="red-d2 mr-auto fw6 underline hover-red" {{action "insertAsLink"}}><span class="underline">Paste URL as link</span></button>
+                <span class="mr3">{{t "koenig.embed.There was an error when parsing the URL."}}</span>
+                <button type="button" class="red-d2 mr3 fw6 hover-red" {{action "retry"}}><span class="underline">{{t "koenig.embed.Retry"}}</span></button>
+                <button type="button" class="red-d2 mr-auto fw6 underline hover-red" {{action "insertAsLink"}}><span class="underline">{{t "koenig.embed.Paste URL as link"}}</span></button>
                 <button type="button" {{action deleteCard}} class="nudge-right--2">
                     {{svg-jar "close" class="w3 stroke-red-l3"}}
                 </button>
@@ -49,7 +49,7 @@
                 type="text"
                 value={{payload.url}}
                 name="url"
-                placeholder="Paste URL to add embedded content..."
+                placeholder={{t "koenig.embed.Paste URL to add embedded content..."}}
                 class="miw-100 pa2 ba br2 b--lightgrey-d2 f7 form-text lh-title tracked-2 h10 nl2 nr2"
                 oninput={{action "updateUrl"}}
                 onkeydown={{action "urlKeydown"}}>

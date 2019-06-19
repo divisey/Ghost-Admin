@@ -15,7 +15,8 @@ export default Route.extend({
 
     buildRouteInfoMetadata() {
         return {
-            titleToken: this.intl.t('pageTitle.Error')
+            titleToken: this.intl.t('pageTitle.Error'),
+            mainClasses: ['gh-main-white']
         };
     }
 });

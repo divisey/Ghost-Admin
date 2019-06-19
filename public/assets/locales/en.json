@@ -55,6 +55,7 @@
   "Suspended users": "Suspended users",
   "Staff": "Staff",
   "Members": "Members",
+  "Enable free or paid member registration. Restrict content by using <span class=\"dib blue ba br2 b--blue pa1 pt0 pb0 tag-token--internal\">#members</span> hashtag on posts": "Enable free or paid member registration. Restrict content by using <span class=\"dib blue ba br2 b--blue pa1 pt0 pb0 tag-token--internal\">#members</span> hashtag on posts",
   "Suspended": "Suspended",
   "User Actions": "User Actions",
   "User Settings": "User Settings",
@@ -849,14 +850,20 @@
       "Click to select up to 9 images": "Click to select up to 9 images",
       "Drop to add up to 9 images": "Drop to add up to 9 images",
       "Dismiss": "Dismiss",
-      "Type caption for gallery (optional)": "Type caption for gallery (optional)"
+      "Type caption for gallery (optional)": "Type caption for gallery (optional)",
+      "{fileName} failed to upload": "{fileName} failed to upload",
+      "Some images failed to upload": "Some images failed to upload"
     },
     "md": {
       "Drop image(s) here to upload": "Drop image(s) here to upload",
       "Upload failed": "Upload failed",
       "Uploading {images, plural}...": "Uploading {images, plural, =1{the image} other{# images}}..."
     },
-    "link.Enter url": "link.Enter url",
+    "link": {
+      "Enter url": "Enter url",
+      "Edit": "Edit",
+      "Remove": "Remove"
+    },
     "img": {
       "Drop to replace image": "Drop to replace image",
       "Drop it like it's hot \uD83D\uDD25": "Drop it like it's hot \uD83D\uDD25",
@@ -875,6 +882,17 @@
       "Heading Two": "Heading Two",
       "Quote": "Quote",
       "Link": "Link"
+    },
+    "embed": {
+      "Paste URL to add embedded content...": "Paste URL to add embedded content...",
+      "Paste URL as link": "Paste URL as link",
+      "Retry": "Retry",
+      "There was an error when parsing the URL.": "There was an error when parsing the URL.",
+      "Type caption for embed (optional)": "Type caption for embed (optional)"
+    },
+    "code": {
+      "Type caption for code block (optional)": "Type caption for code block (optional)",
+      "Language...": "Language..."
     }
   },
   "event": {
@@ -901,5 +919,10 @@
     "subscriber.added": "Subscriber added",
     "subscriber.deleted": "Subscriber deleted"
   },
-  "Open site in new tab": "Open site in new tab"
+  "Open site in new tab": "Open site in new tab",
+  "Title": "Title",
+  "Last update": "Last update",
+  "Search site (Ctrl/⌘ + K)": "Search site (Ctrl/⌘ + K)",
+  "Preview site": "Preview site",
+  "New story": "New story"
 }
