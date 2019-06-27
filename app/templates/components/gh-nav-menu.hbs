@@ -20,7 +20,7 @@
             <li class="relative">
                 <span {{action "transitionToOrRefreshSite" on="click"}}>
                     {{#link-to "site" data-test-nav="site" current-when=isOnSite preventDefault=false}}
-                        {{svg-jar "house"}} {{t "Preview site"}}
+                        {{svg-jar "house"}} {{t "View site"}}
                     {{/link-to}}
                 </span>
                 <a href="{{config.blogUrl}}/" class="gh-secondary-action" title="{{t "Open site in new tab"}}" target="_blank">
@@ -100,8 +100,8 @@
                 <div class="flex-auto flex items-center">
                     <div class="gh-user-avatar" style={{background-image-style session.user.profileImageUrl}}></div>
                     <div class="flex flex-column items-start justify-center">
-                        <span class="mr2 {{if session.user.name "mb1"}} fw6 lh-solid word-wrap">{{session.user.name}}</span>
-                        <span class="mr2 fw4 f8 middarkgrey lh-solid word-wrap">{{session.user.email}}</span>
+                        <span class="gh-user-name {{if session.user.name "mb1"}}">{{session.user.name}}</span>
+                        <span class="gh-user-email">{{session.user.email}}</span>
                     </div>
                 </div>
                 {{svg-jar "arrow-down" class="w3 mr1 fill-darkgrey"}}
