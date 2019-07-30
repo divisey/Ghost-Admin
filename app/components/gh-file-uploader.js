@@ -83,13 +83,15 @@ export default Component.extend({
         this.accept = this.accept || DEFAULTS.accept;
         this.extensions = this.extensions || DEFAULTS.extensions;
 
+        this._uploadEventHandler = function (file) {
+            if (file) {
+                this.set('file', file);
+            }
+            this.send('upload');
+        };
+
         if (listenTo) {
-            this.eventBus.subscribe(`${listenTo}:upload`, this, function (file) {
-                if (file) {
-                    this.set('file', file);
-                }
-                this.send('upload');
-            });
+            this.eventBus.subscribe(`${listenTo}:upload`, this, this._uploadEventHandler);
         }
     },
 
@@ -108,7 +110,7 @@ export default Component.extend({
         this._super(...arguments);
 
         if (listenTo) {
-            this.eventBus.unsubscribe(`${listenTo}:upload`);
+            this.eventBus.unsubscribe(`${listenTo}:upload`, this, this._uploadEventHandler);
         }
     },
 

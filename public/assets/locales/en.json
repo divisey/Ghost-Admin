@@ -869,6 +869,8 @@
       "Drop it like it's hot \uD83D\uDD25": "Drop it like it's hot \uD83D\uDD25",
       "Click to select an image": "Click to select an image",
       "Type caption for image (optional)": "Type caption for image (optional)",
+      "Type alt text for image (optional)": "Type alt text for image (optional)",
+      "Toggle between editing alt text and caption": "Toggle between editing alt text and caption",
       "Regular": "Regular",
       "Wide": "Wide",
       "Full": "Full",

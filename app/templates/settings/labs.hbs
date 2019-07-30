@@ -102,7 +102,7 @@
                 <div class="gh-setting">
                     <div class="gh-setting-content">
                     <div class="gh-setting-title">{{t "Public API (deprecated)"}}</div>
-                    <div class="gh-setting-desc">{{{t "⚠️ Please use the Content API instead, more info in <a href=\"{link}\">the docs</a>" link="https://docs.ghost.org/api/content/"}}}</div>
+                    <div class="gh-setting-desc">{{{t "⚠️ Please use the Content API instead, more info in <a href=\"{link}\">the docs</a>" link="https://ghost.org/docs/api/content/"}}}</div>
                     </div>
                     <div class="gh-setting-action">
                         <div class="for-switch">{{gh-feature-flag "publicAPI"}}</div>
@@ -112,7 +112,7 @@
             <div class="gh-setting {{if feature.members "gh-labs-disabled"}}" data-tooltip="{{if feature.members (t "Disabled when members is turned on")}}">
                 <div class="gh-setting-content">
                     <div class="gh-setting-title">{{t "Subscribers"}}</div>
-                    <div class="gh-setting-desc">{{{t "Collect email addresses from your readers, more info in <a href=\"{link}\">the docs</a>" link="https://docs.ghost.org/faq/enable-subscribers-feature/"}}}</div>
+                    <div class="gh-setting-desc">{{{t "Collect email addresses from your readers, more info in <a href=\"{link}\">the docs</a>" link="https://ghost.org/faq/enable-subscribers-feature/"}}}</div>
                 </div>
                 <div class="gh-setting-action">
                     {{#if feature.members}}
@@ -245,7 +245,7 @@
                 }}
                 <div class="gh-setting-content">
                     <div class="gh-setting-title">{{t "Redirects"}}</div>
-                    <div class="gh-setting-desc">{{{t "Configure redirects for old or moved content, more info in <a href=\"{link}\">the docs</a>" link="https://docs.ghost.org/tutorials/implementing-redirects/"}}}</div>
+                    <div class="gh-setting-desc">{{{t "Configure redirects for old or moved content, more info in <a href=\"{link}\">the docs</a>" link="https://ghost.org/tutorials/implementing-redirects/"}}}</div>
                     {{#each uploader.errors as |error|}}
                         <div class="gh-setting-error" data-test-error="redirects">{{or error.context error.message}}</div>
                     {{/each}}

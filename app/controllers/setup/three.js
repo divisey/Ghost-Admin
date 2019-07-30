@@ -225,7 +225,7 @@ export default Controller.extend({
             message = this.intl.t('Failed to send {invitations, plural} {erroredEmails}. Please check your email configuration, see <a href="{link}" target="_blank">{link}</a> for instructions', {
                 invitations: erroredEmails.length,
                 erroredEmails: Ember.Handlebars.Utils.escapeExpression(erroredEmails.join(', ')),
-                link: 'https://docs.ghost.org/mail/'
+                link: 'https://ghost.org/docs/concepts/config/#mail'
             });
 
             message = htmlSafe(message);

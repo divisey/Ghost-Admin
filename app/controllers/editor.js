@@ -730,7 +730,6 @@ export default Controller.extend({
         let errorMessage;
 
         function isString(str) {
-            /* global toString */
             return toString.call(str) === '[object String]';
         }
 

@@ -300,11 +300,7 @@ export default Controller.extend({
     }).drop(),
 
     saveSettings: task(function* () {
-        try {
-            return yield this.settings.save();
-        } catch (error) {
-            throw error;
-        }
+        return yield this.settings.save();
     }).drop(),
 
     redirectUploadResult: task(function* (success) {
