@@ -62,7 +62,7 @@
         </ul>
         {{#if (gh-user-can-admin session.user)}}
             <ul class="gh-nav-list gh-nav-settings">
-                <li class="gh-nav-list-h">Settings</li>
+                <li class="gh-nav-list-h">{{t "Settings"}}</li>
                 <li>{{#link-to "settings.general" data-test-nav="settings"}}{{svg-jar "settings"}}{{t "General"}}{{/link-to}}</li>
                 <li>{{#link-to "settings.design" data-test-nav="design"}}{{svg-jar "paintbrush"}}{{t "Design"}}{{/link-to}}</li>
                 <li>{{#link-to "settings.code-injection" data-test-nav="code-injection"}}{{svg-jar "brackets"}}{{t "Code injection"}}{{/link-to}}</li>

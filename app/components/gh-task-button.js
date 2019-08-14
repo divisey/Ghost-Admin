@@ -40,7 +40,6 @@ const GhTaskButton = Component.extend({
     // Allowed actions
     action: () => {},
 
-    isRunning: reads('task.last.isRunning'),
     runningText: reads('buttonText'),
 
     failureText: computed('intl.locale', function () {
@@ -64,12 +63,22 @@ const GhTaskButton = Component.extend({
         return this.isIdle ? this.idleClass : '';
     }),
 
+    isRunning: computed('task.last.isRunning', 'hasRun', 'showSuccess', function () {
+        let isRunning = this.get('task.last.isRunning');
+
+        if (this.hasRun && this.get('task.last.value') && !this.showSuccess) {
+            isRunning = true;
+        }
+
+        return isRunning;
+    }),
+
     isRunningClass: computed('isRunning', function () {
         return this.isRunning ? (this.runningClass || this.idleClass) : '';
     }),
 
     isSuccess: computed('hasRun', 'isRunning', 'task.last.value', function () {
-        if (!this.hasRun || this.isRunning) {
+        if (!this.hasRun || this.isRunning || !this.showSuccess) {
             return false;
         }
 
