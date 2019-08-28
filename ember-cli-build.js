@@ -210,6 +210,8 @@ module.exports = function (defaults) {
             ],
             optimizer: {
                 plugins: [
+                    {prefixIds: true},
+                    {cleanupIds: false},
                     {removeDimensions: true},
                     {removeTitle: true},
                     {removeXMLNS: true},

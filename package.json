@@ -1,6 +1,6 @@
 {
   "name": "ghost-admin",
-  "version": "2.30.1",
+  "version": "2.30.2",
   "description": "Ember.js admin client for Ghost",
   "author": "Ghost Foundation",
   "homepage": "http://ghost.org",
@@ -33,6 +33,7 @@
     "@tryghost/kg-clean-basic-html": "0.1.2",
     "@tryghost/kg-parser-plugins": "0.7.0",
     "@tryghost/mobiledoc-kit": "0.11.2-ghost.4",
+    "@tryghost/string": "^0.1.5",
     "@tryghost/timezone-data": "0.2.7",
     "autoprefixer": "9.6.1",
     "blueimp-md5": "2.11.1",
@@ -42,7 +43,7 @@
     "broccoli-merge-trees": "3.0.2",
     "broccoli-uglify-sourcemap": "3.1.1",
     "chai-dom": "1.8.1",
-    "codemirror": "5.48.4",
+    "codemirror": "5.48.2",
     "csscomb": "4.3.0",
     "cssnano": "4.1.10",
     "element-resize-detector": "1.1.15",
@@ -125,8 +126,7 @@
     "testem": "2.17.0",
     "top-gh-contribs": "2.0.4",
     "validator": "7.2.0",
-    "walk-sync": "2.0.2",
-    "@tryghost/string": "^0.1.5"
+    "walk-sync": "2.0.2"
   },
   "ember-addon": {
     "paths": [
