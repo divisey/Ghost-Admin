@@ -40,6 +40,7 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
     ui: service(),
     intl: service(),
     lazyLoader: service(),
+    whatsNew: service(),
 
     shortcuts,
 
@@ -90,6 +91,12 @@ export default Route.extend(ApplicationRouteMixin, ShortcutsRoute, {
                 this.tour.fetchViewed()
             ]).then((results) => {
                 this._appLoaded = true;
+
+                // kick off background update of "whats new"
+                // - we don't want to block the router for this
+                // - we need the user details to know what the user has seen
+                this.whatsNew.fetchLatest.perform();
+
                 return results;
             });
         }

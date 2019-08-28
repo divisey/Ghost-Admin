@@ -99,6 +99,22 @@
   "General": "General",
   "Design": "Design",
   "Tags": "Tags",
+  "Public tags": "Public tags",
+  "Internal tags": "Internal tags",
+  "Tag": "Tag",
+  "No. of posts": "No. of posts",
+  "Create a new tag": "Create a new tag",
+  "You haven't created any {type} tags yet!": "You haven't created any {type} tags yet!",
+  "Edit tag": "Edit tag",
+  "List posts tagged with '{tag}'": "List posts tagged with '{tag}'",
+  "Start with # to create internal tags.": "Start with # to create internal tags.",
+  "Learn more": "Learn more",
+  "Tag image": "Tag image",
+  "This tag is attached to {posts, plural}.": "This tag is attached to {posts, plural, =1{a post} other{# posts}}.",
+  "Delete tag": "Delete tag",
+  "Basic settings": "Basic settings",
+  "Meta data": "Meta data",
+  "{posts, plural}": "{posts, plural, =0{no posts} =1{# post} other{# posts}}",
   "Code injection": "Code injection",
   "Integrations": "Integrations",
   "Built-in integrations": "Built-in integrations",
@@ -834,6 +850,7 @@
       "HTML": "HTML",
       "Gallery": "Gallery",
       "Divider": "Divider",
+      "Bookmark": "Bookmark",
       "YouTube": "YouTube",
       "Twitter": "Twitter",
       "Instagram": "Instagram",
@@ -858,7 +875,8 @@
     "md": {
       "Drop image(s) here to upload": "Drop image(s) here to upload",
       "Upload failed": "Upload failed",
-      "Uploading {images, plural}...": "Uploading {images, plural, =1{the image} other{# images}}..."
+      "Uploading {images, plural}...": "Uploading {images, plural, =1{the image} other{# images}}...",
+      "Edit": "Edit"
     },
     "link": {
       "Enter url": "Enter url",
@@ -896,6 +914,12 @@
     "code": {
       "Type caption for code block (optional)": "Type caption for code block (optional)",
       "Language...": "Language..."
+    },
+    "bookmark": {
+      "Retry": "Retry",
+      "Paste URL as link": "Paste URL as link",
+      "Paste URL to add bookmark content...": "Paste URL to add bookmark content...",
+      "Type caption for bookmark (optional)": "Type caption for bookmark (optional)"
     }
   },
   "event": {

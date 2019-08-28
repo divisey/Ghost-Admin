@@ -129,10 +129,9 @@
     text-decoration: none;
 }
 
-.content-list .gh-list-header:first-child {
+.content-list .gh-list-header.no-padding {
     padding: 0 !important;
 }
-
 .gh-posts-title-header {
     padding-left: 10px;
 }
@@ -351,12 +350,6 @@
 @media (min-width: 901px) {
     .gh-posts-list-item a:after {
         display: none;
-    }
-}
-
-@media (min-width: 901px) {
-    .content-list .active a {
-        box-shadow: var(--blue) 3px 0 0 inset;
     }
 }
 
