@@ -22,6 +22,7 @@ export default AuthenticatedRoute.extend({
                 method: 'POST',
                 mode: 'cors',
                 redirect: 'manual',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
