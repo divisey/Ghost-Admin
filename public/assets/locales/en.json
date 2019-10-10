@@ -728,7 +728,7 @@
   "Download current routes.yaml": "Download current routes.yaml",
   "Stripe secret API key": "Stripe secret API key",
   "Stripe publishable API key": "Stripe publishable API key",
-  "How to find Stripe API keys": "How to find Stripe API keys",
+  "Where to find Stripe API keys": "Where to find Stripe API keys",
   "Monthly price": "Monthly price",
   "Yearly price": "Yearly price",
   "trigger": {
