@@ -1,15 +1,15 @@
 <div class="flex flex-column b--whitegrey bt">
     <section class="flex flex-column bb b--whitegrey pa5">
-        <div class="w-50 mb4"> 
-            <label class="fw6 f6">Stripe publishable API key</label>
+        <div class="w-50 mb4">
+            <label class="fw6 f6">{{t "Stripe publishable API key"}}</label>
             {{gh-text-input
                 value=(readonly subscriptionSettings.stripeConfig.public_token)
                 input=(action "setSubscriptionSettings" "public_token")
                 class="mt1"
             }}
         </div>
-        <div class="w-50 mb4"> 
-            <label class="fw6 f6 mt4">Stripe secret API key</label>
+        <div class="w-50 mb4">
+            <label class="fw6 f6 mt4">{{t "Stripe secret API key"}}</label>
             {{gh-text-input
                 value=(readonly subscriptionSettings.stripeConfig.secret_token)
                 input=(action "setSubscriptionSettings" "secret_token")
@@ -23,7 +23,7 @@
         <div class="w-50 flex nb5">
             <div class="w-50 mr3">
                 {{#gh-form-group}}
-                <label class="fw6 f6">Monthly price</label>
+                <label class="fw6 f6">{{t "Monthly price"}}</label>
                 <div class="mt1 relative gh-labs-price-label gh-labs-monthly-price">
                     {{gh-text-input
                         value=(readonly subscriptionSettings.stripeConfig.plans.monthly.dollarAmount)
@@ -35,7 +35,7 @@
             </div>
             <div class="w-50 ml2">
                 {{#gh-form-group class="description-container"}}
-                <label class="fw6 f6">Yearly price</label>
+                <label class="fw6 f6">{{t "Yearly price"}}</label>
                 <div class="mt1 relative gh-labs-price-label gh-labs-yearly-price">
                     {{gh-text-input
                         value=(readonly subscriptionSettings.stripeConfig.plans.yearly.dollarAmount)
@@ -48,14 +48,14 @@
         </div>
     </section>
 
-    <section class="flex flex-column bb b--whitegrey pa5"> 
-        <label class="dib f6 fw6 mb4">Default post access</label>
+    <section class="flex flex-column bb b--whitegrey pa5">
+        <label class="dib f6 fw6 mb4">{{t "Default post access"}}</label>
 
         <div class="gh-radio {{if (eq settings.defaultContentVisibility "public") "active"}}"
             {{action "setDefaultContentVisibility" "public" on="click"}}>
             <div class="gh-radio-button" data-test-publishmenu-unpublished-option></div>
             <div class="gh-radio-content">
-                <div class="gh-radio-label">Public</div>
+                <div class="gh-radio-label">{{t "Public"}}</div>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
             {{action "setDefaultContentVisibility" "members" on="click"}}>
             <div class="gh-radio-button" data-test-publishmenu-published-option></div>
             <div class="gh-radio-content">
-                <div class="gh-radio-label">Members only</div>
+                <div class="gh-radio-label">{{t "Members only"}}</div>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
             {{action "setDefaultContentVisibility" "paid" on="click"}}>
             <div class="gh-radio-button" data-test-publishmenu-published-option></div>
             <div class="gh-radio-content">
-                <div class="gh-radio-label">Paid-members only</div>
+                <div class="gh-radio-label">{{t "Paid-members only"}}</div>
             </div>
         </div>
     </section>
@@ -80,7 +80,7 @@
         <div class="for-checkbox">
             <label class="checkbox flex items-center" for="members-require-payment"
                 {{action "setSubscriptionSettings" "requirePaymentForSignup" bubbles="false"}}>
-                <span class="f6 fw6"> Require payment for signups</span>
+                <span class="f6 fw6"> {{t "Require payment for signups"}}</span>
                 <input type="checkbox" checked={{subscriptionSettings.requirePaymentForSignup}} class="gh-input"
                     onclick={{action "setSubscriptionSettings" "requirePaymentForSignup"}}
                     data-test-checkbox="members-require-payment">
@@ -91,7 +91,7 @@
     <div class="flex flex-column pl5 pr5 pt5">
         <div class="w-50 mr3">
             {{#gh-form-group}}
-            <label class="dib f6 fw6 mb4">Email</label>
+            <label class="dib f6 fw6 mb4">{{t "Email"}}</label>
             <div class="flex items-center justify-center">
                 {{gh-text-input
                     value=(readonly subscriptionSettings.fromAddress)
@@ -99,7 +99,7 @@
                 }}
                 <span class="ml3"> @{{config.blogDomain}}</span>
             </div>
-            <div class="f6 fw4"> "From" address for sending sign up and sign in emails</div>
+            <div class="f6 fw4"> {{t "\"From\" address for sending sign up and sign in emails"}}</div>
             {{/gh-form-group}}
         </div>
     </div>

@@ -4,7 +4,6 @@
         {{#gh-form-group errors=member.errors hasValidated=member.hasValidated property="name"}}
         <label for="member-name">{{t "member.Name"}}</label>
         {{gh-text-input
-                    disabled=true
                     id="member-name"
                     name="name"
                     value=(readonly scratchName)
@@ -29,19 +28,18 @@
     </div>
     <div class="mb6 mb0-ns w-100 w-50-ns">
         {{#gh-form-group errors=member.errors hasValidated=member.hasValidated property="note"}}
-            <label for="member-description">{{t "member.Note"}}</label>
+            <label for="member-note">{{t "member.Note"}}</label>
             {{gh-textarea
-                        disabled=true
-                        id="member-description"
-                        name="description"
+                        id="member-note"
+                        name="note"
                         class="gh-member-details-textarea"
                         tabindex="3"
-                        value=(readonly scratchDescription)
-                        input=(action (mut scratchDescription) value="target.value")
-                        focus-out=(action 'setProperty' 'description' scratchDescription)
+                        value=(readonly scratchNote)
+                        input=(action (mut scratchNote) value="target.value")
+                        focus-out=(action 'setProperty' 'note' scratchNote)
                     }}
-            {{gh-error-message errors=member.errors property="description"}}
-            {{{t "member.subscription.<p>Maximum: <b>500</b> characters. You’ve used {countdown}</p>" countdown=(gh-count-down-characters scratchDescription 500)}}}
+            {{gh-error-message errors=member.errors property="note"}}
+            {{{t "member.subscription.<p>Maximum: <b>500</b> characters. You’ve used {countdown}</p>" countdown=(gh-count-down-characters scratchNote 500)}}}
         {{/gh-form-group}}
     </div>
 </div>
@@ -70,13 +68,17 @@
                             <table class="gh-member-stripe-table">
                                 <tr>
                                     <td class="gh-member-stripe-label">{{t "member.subscription.Stripe customer ID"}}</td>
-                                    <td class="gh-member-stripe-data"><a href="https://dashboard.stripe.com/test/customers/{{subscription.customer}}" target="_blank" rel="noopener" data-tooltip="{{t "member.subscription.View on Stripe"}}">{{subscription.customer}}</a></td>
+                                    <td class="gh-member-stripe-data">
+                                        <a href="https://dashboard.stripe.com/test/customers/{{subscription.customer.id}}" target="_blank" rel="noopener" data-tooltip="{{t "member.subscription.View on Stripe"}}">
+                                            {{subscription.customer.id}}
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="gh-member-stripe-label">{{t "member.subscription.Name"}}</td>
                                     <td class="gh-member-stripe-data">
-                                        {{#if subscription.name}}
-                                            {{subscription.name}}
+                                        {{#if subscription.customer.name}}
+                                            {{subscription.customer.name}}
                                         {{else}}
                                             <span class="midlightgrey-l2">{{t "member.subscription.No name"}}</span>
                                         {{/if}}
@@ -85,8 +87,8 @@
                                 <tr>
                                     <td class="gh-member-stripe-label">{{t "member.subscription.Email"}}</td>
                                     <td class="gh-member-stripe-data">
-                                        {{#if subscription.email}}
-                                            {{subscription.email}}
+                                        {{#if subscription.customer.email}}
+                                            {{subscription.customer.email}}
                                         {{else}}
                                             <span class="midlightgrey-l2">{{t "member.subscription.No email"}}</span>
                                         {{/if}}
@@ -110,7 +112,7 @@
                             <table class="gh-member-stripe-table">
                                 <tr>
                                     <td class="gh-member-stripe-label">{{t "member.subscription.Plan"}}</td>
-                                    <td class="gh-member-stripe-data">{{subscription.planName}}</td>
+                                    <td class="gh-member-stripe-data">{{subscription.plan.nickname}}</td>
                                 </tr>
                                 <tr>
                                     <td class="gh-member-stripe-label">{{t "member.subscription.Current status"}}</td>
