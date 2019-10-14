@@ -6,6 +6,7 @@ export default Component.extend({
     feature: service(),
     config: service(),
     mediaQueries: service(),
+    intl: service(),
 
     subscriptionSettings: computed('settings.membersSubscriptionSettings', function () {
         let subscriptionSettings = this.parseSubscriptionSettings(this.get('settings.membersSubscriptionSettings'));
@@ -21,8 +22,9 @@ export default Component.extend({
             yearly: yearlyPlan
         };
         subscriptionSettings.stripeConfig = stripeProcessor.config;
-        subscriptionSettings.requirePaymentForSetup = !!subscriptionSettings.requirePaymentForSetup;
+        subscriptionSettings.allowSelfSignup = !!subscriptionSettings.allowSelfSignup;
         subscriptionSettings.fromAddress = subscriptionSettings.fromAddress || 'noreply';
+
         return subscriptionSettings;
     }),
 
@@ -58,8 +60,8 @@ export default Component.extend({
                     return plan;
                 });
             }
-            if (key === 'requirePaymentForSignup') {
-                subscriptionSettings.requirePaymentForSignup = !subscriptionSettings.requirePaymentForSignup;
+            if (key === 'allowSelfSignup') {
+                subscriptionSettings.allowSelfSignup = !subscriptionSettings.allowSelfSignup;
             }
             if (key === 'fromAddress') {
                 subscriptionSettings.fromAddress = event.target.value;
@@ -74,7 +76,7 @@ export default Component.extend({
         } catch (e) {
             return {
                 isPaid: false,
-                requirePaymentForSignup: false,
+                allowSelfSignup: true,
                 fromAddress: 'noreply',
                 paymentProcessors: [{
                     adapter: 'stripe',
@@ -86,13 +88,13 @@ export default Component.extend({
                         },
                         plans: [
                             {
-                                name: 'Monthly',
+                                name: this.intl.t('Monthly'),
                                 currency: 'usd',
                                 interval: 'month',
                                 amount: ''
                             },
                             {
-                                name: 'Yearly',
+                                name: this.intl.t('Yearly'),
                                 currency: 'usd',
                                 interval: 'year',
                                 amount: ''
