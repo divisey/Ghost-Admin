@@ -1,7 +1,7 @@
 {{#unless selectedTag}}
 <section class="gh-canvas tags-view">
-    <header class="gh-canvas-header">
-        {{#gh-view-title}}<span>{{t "Tags"}}</span>{{/gh-view-title}}
+    <GhCanvasHeader class="gh-canvas-header tags-header">
+        <h2 class="gh-canvas-title" data-test-screen-title>{{t "Tags"}}</h2>
         <section class="view-actions">
             <div class="gh-contentfilter gh-btn-group">
                 <button class="gh-btn {{if (eq type "public") "gh-btn-group-selected"}}" {{action "changeType" "public"}}><span>{{t "Public tags"}}</span></button>
@@ -9,16 +9,15 @@
             </div>
             {{#link-to "tags.new" class="gh-btn gh-btn-green"}}<span>{{t "New tag"}}</span>{{/link-to}}
         </section>
-    </header>
-
+    </GhCanvasHeader>
     <section class="content-list">
         <ol class="tags-list gh-list {{unless sortedTags "no-posts"}}">
             {{#if sortedTags}}
                 <li class="gh-list-row header">
-                    <div class="gh-list-header gh-list-cellwidth-1-2">{{t "Tag"}}</div>
-                    <div class="gh-list-header">{{t "Slug"}}</div>
-                    <div class="gh-list-header">{{t "No. of posts"}}</div>
-                    <div class="gh-list-header"></div>
+                    <div class="gh-list-header">{{t "Tag"}}</div>
+                    <div class="gh-list-header gh-list-cellwidth-10">{{t "Slug"}}</div>
+                    <div class="gh-list-header gh-list-cellwidth-10">{{t "No. of posts"}}</div>
+                    <div class="gh-list-header gh-list-cellwidth-min"></div>
                 </li>
                 {{#vertical-collection
                     items=sortedTags

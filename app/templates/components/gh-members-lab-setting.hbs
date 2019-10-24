@@ -2,8 +2,8 @@
     <section class="bb b--whitegrey pa5">
         <div class="flex justify-between">
             <div>
-                <h4 class="gh-setting-title">{{t "Stripe settings"}}</h4>
-                <p class="gh-setting-desc pa0 ma0">{{t "Configure Stripe API keys for signups"}}</p>
+                <h4 class="gh-setting-title">{{t "Connect to Stripe"}}</h4>
+                <p class="gh-setting-desc pa0 ma0">{{t "Configure API keys to create subscriptions and take payments"}}</p>
             </div>
             <div>
                 <button type="button" class="gh-btn" {{action (toggle "membersStripeOpen" this)}} data-test-toggle-membersstripe><span>{{if membersStripeOpen (t "common.Close") (t "common.Expand")}}</span></button>
@@ -11,33 +11,50 @@
         </div>
 
         {{#liquid-if membersStripeOpen}}
-                <div class="w-50 mb4 mt5">
-                    <label class="fw6 f8">{{t "Stripe publishable API key"}}</label>
-                    {{gh-text-input
+            <div class="flex flex-column flex-row-l items-start justify-between mb4 mt6">
+                <div class="w-100 w-50-l">
+                    <div class="mb4">
+                        <label class="fw6 f8">{{t "Stripe Publishable key"}}</label>
+                        {{gh-text-input
+                            type="password"
                             value=(readonly subscriptionSettings.stripeConfig.public_token)
                             input=(action "setSubscriptionSettings" "public_token")
-                            class="mt1"
+                            class="mt1 password"
                         }}
-                </div>
-                <div class="w-50 mb4">
-                    <label class="fw6 f8 mt4">{{t "Stripe secret API key"}}</label>
-                    {{gh-text-input
+                    </div>
+                    <div class="nudge-top--3">
+                        <label class="fw6 f8 mt4">{{t "Stripe Secret key"}}</label>
+                        {{gh-text-input
+                            type="password"
                             value=(readonly subscriptionSettings.stripeConfig.secret_token)
                             input=(action "setSubscriptionSettings" "secret_token")
-                            class="mt1"
+                            class="mt1 password"
                         }}
-                    <a href="https://dashboard.stripe.com/account/apikeys" target="_blank" class="mt1 fw4 f8">
-                        {{t "Where to find Stripe API keys"}}
-                    </a>
+                        <a href="https://dashboard.stripe.com/account/apikeys" target="_blank" class="mt1 fw4 f8">
+                            {{t "Find your Stripe API keys here &raquo;"}}
+                        </a>
+                    </div>
                 </div>
+                <div class="ml0 ml5-l mt6">
+                    <div class="gh-members-stripe-info">
+                        <div class="gh-members-stripe-info-header">
+                            <h4>{{t "How you get paid"}}</h4>
+                            {{svg-jar "stripe-verified-partner-badge" class="gh-members-stripe-badge"}}
+                        </div>
+                        <p class="f8 mt2 mb0">
+                            {{{t "Stripe is our exclusive direct payments partner.<br /> Ghost collects <strong>no fees</strong> on any payments! If you don’t have a Stripe account yet, you can <a href=\"https://stripe.com\" target=\"_blank\"  rel=\"noopener\" class=\"gh-members-stripe-link\">sign up here</a>."}}}
+                        </p>
+                    </div>
+                </div>
+            </div>
         {{/liquid-if}}
     </section>
 
     <section class="bb b--whitegrey pa5">
         <div class="flex justify-between">
             <div>
-                <h4 class="gh-setting-title">{{t "Pricing"}}</h4>
-                <p class="gh-setting-desc pa0 ma0">{{t "Set monthly and yearly subscription prices"}}</p>
+                <h4 class="gh-setting-title">{{t "Subscription pricing"}}</h4>
+                <p class="gh-setting-desc pa0 ma0">{{t "Set monthly and yearly recurring subscription prices"}}</p>
             </div>
             <div>
                 <button type="button" class="gh-btn" {{action (toggle "membersPricingOpen" this)}} data-test-toggle-memberspricing><span>{{if membersPricingOpen (t "common.Close") (t "common.Expand")}}</span></button>
@@ -45,40 +62,44 @@
         </div>
 
         {{#liquid-if membersPricingOpen}}
-            <div class="w-50 flex mb4 mt5">
-                <div class="w-50 mr3">
+            <div class="w-100 w-50-l flex flex-column flex-row-ns mt8">
+                <div class="w-100 w-50-ns mr3-ns">
                     {{#gh-form-group}}
                     <label class="fw6 f8">{{t "Monthly price"}}</label>
-                    <div class="mt1 relative gh-labs-price-label gh-labs-monthly-price">
+
+                    <div class="flex items-center justify-center mt1 gh-input-group gh-labs-price-label">
                         {{gh-text-input
-                                value=(readonly subscriptionSettings.stripeConfig.plans.monthly.dollarAmount)
-                                type="number"
-                                input=(action "setSubscriptionSettings" "month")
-                            }}
+                            value=(readonly subscriptionSettings.stripeConfig.plans.monthly.dollarAmount)
+                            type="number"
+                            input=(action "setSubscriptionSettings" "month")
+                        }}
+                        <span class="gh-input-append">{{t "USD/month"}}</span>
                     </div>
                     {{/gh-form-group}}
                 </div>
-                <div class="w-50 ml2">
+                <div class="w-100 w-50-ns ml2-ns">
                     {{#gh-form-group class="description-container"}}
                     <label class="fw6 f8">{{t "Yearly price"}}</label>
-                    <div class="mt1 relative gh-labs-price-label gh-labs-yearly-price">
+                    <div class="flex items-center justify-center mt1 gh-input-group gh-labs-price-label">
                         {{gh-text-input
                                 value=(readonly subscriptionSettings.stripeConfig.plans.yearly.dollarAmount)
                                 type="number"
                                 input=(action "setSubscriptionSettings" "year")
                             }}
+                        <span class="gh-input-append">{{t "USD/year"}}</span>
                     </div>
                     {{/gh-form-group}}
                 </div>
             </div>
+            <div class="f8 fw4 midgrey">{{{t "Currently only USD is supported, more currencies <a href=\"{link}\" target=\"_blank\" rel=\"noopener\">coming soon</a>" link="https://ghost.org/docs/members/"}}}</div>
         {{/liquid-if}}
     </section>
 
     <section class="bb b--whitegrey pa5">
         <div class="flex justify-between">
             <div>
-                <h4 class="gh-setting-title">{{t "Allow free members signup"}}</h4>
-                <p class="gh-setting-desc pa0 ma0">{{t "Allow free members signup"}}</p>
+                <h4 class="gh-setting-title">{{t "Allow free member signup"}}</h4>
+                <p class="gh-setting-desc pa0 ma0">{{t "If disabled, members can only be signed up via payment checkout or API integration"}}</p>
             </div>
             <div>
                 <div class="for-switch">
@@ -98,7 +119,7 @@
         <div class="flex justify-between">
             <div>
                 <h4 class="gh-setting-title">{{t "Default post access"}}</h4>
-                <p class="gh-setting-desc pa0 ma0">{{t "Configure restrictions for new posts"}}</p>
+                <p class="gh-setting-desc pa0 ma0">{{t "When a new post is created, who should have access to it?"}}</p>
             </div>
             <div>
                 <button type="button" class="gh-btn" {{action (toggle "membersPostAccessOpen" this)}} data-test-toggle-memberspostaccess><span>{{if membersPostAccessOpen (t "common.Close") (t "common.Expand")}}</span></button>
@@ -106,12 +127,13 @@
         </div>
 
         {{#liquid-if membersPostAccessOpen}}
-        <div class="flex flex-column w-50 flex mb4 mt5">
+        <div class="flex flex-column w-50 flex mt8">
             <div class="gh-radio {{if (eq settings.defaultContentVisibility "public") "active"}}"
                 {{action "setDefaultContentVisibility" "public" on="click"}}>
                 <div class="gh-radio-button" data-test-publishmenu-unpublished-option></div>
                 <div class="gh-radio-content">
-                    <div class="gh-radio-label">{{t "Public"}}</div>
+                    <div class="gh-radio-label">{{t "Public"}}<br>
+                    <small class="midgrey">{{t "All site visitors to your site, no login required"}}</small></div>
                 </div>
             </div>
 
@@ -119,7 +141,8 @@
                 {{action "setDefaultContentVisibility" "members" on="click"}}>
                 <div class="gh-radio-button" data-test-publishmenu-published-option></div>
                 <div class="gh-radio-content">
-                    <div class="gh-radio-label">{{t "Members only"}}</div>
+                    <div class="gh-radio-label">{{t "Members only"}}<br>
+                    <small class="midgrey">{{t "All logged-in members"}}</small></div>
                 </div>
             </div>
 
@@ -127,7 +150,8 @@
                 {{action "setDefaultContentVisibility" "paid" on="click"}}>
                 <div class="gh-radio-button" data-test-publishmenu-published-option></div>
                 <div class="gh-radio-content">
-                    <div class="gh-radio-label">{{t "Paid-members only"}}</div>
+                    <div class="gh-radio-label">{{t "Paid-members only"}}<br>
+                    <small class="midgrey">{{t "Only logged-in members with an active Stripe subscription"}}</small></div>
                 </div>
             </div>
         </div>
@@ -137,8 +161,8 @@
     <section class="bb b--whitegrey pa5">
         <div class="flex justify-between">
             <div>
-                <h4 class="gh-setting-title">{{t "Emails"}}</h4>
-                <p class="gh-setting-desc pa0 ma0">{{t "Membership related email settings"}}</p>
+                <h4 class="gh-setting-title">{{t "Email settings"}}</h4>
+                <p class="gh-setting-desc pa0 ma0">{{t "Customise signup, signin and subscription emails"}}</p>
             </div>
             <div>
                 <button type="button" class="gh-btn" {{action (toggle "membersEmailOpen" this)}} data-test-toggle-membersemail><span>{{if membersEmailOpen (t "common.Close") (t "common.Expand")}}</span></button>
@@ -146,18 +170,18 @@
         </div>
 
         {{#liquid-if membersEmailOpen}}
-        <div class="flex flex-column w-40 flex mb2 mt5">
+        <div class="flex flex-column w-100 w-50-l flex mt8">
             {{#gh-form-group}}
-            <label class="fw6 f8">{{t "Sender email address"}}</label>
-            <div class="flex items-center justify-center mt1">
+            <label class="fw6 f8">{{t "From Address"}}</label>
+            <div class="flex items-center justify-center mt1 gh-input-group">
                 {{gh-text-input
                     value=(readonly subscriptionSettings.fromAddress)
                     input=(action "setSubscriptionSettings" "fromAddress")
                     class="w20"
                 }}
-                <span class="ml3"> @{{config.blogDomain}}</span>
+                <span class="gh-input-append"> @{{config.blogDomain}}</span>
             </div>
-            <div class="f8 fw4 midgrey mt1"> {{t "\"From\" address for sign up and sign in emails"}}</div>
+            <div class="f8 fw4 midgrey mt1">{{t "Your members will receive system emails from this address"}}</div>
             {{/gh-form-group}}
         </div>
         {{/liquid-if}}
