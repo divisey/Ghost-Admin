@@ -118,17 +118,6 @@
                     <div class="for-switch">{{gh-feature-flag "nightShift"}}</div>
                 </div>
             </div>
-            {{#if (not-eq feature.labs.publicAPI undefined)}}
-                <div class="gh-setting">
-                    <div class="gh-setting-content">
-                        <div class="gh-setting-title">{{t "Public API (deprecated)"}}</div>
-                        <div class="gh-setting-desc">{{{t "⚠️ Please use the Content API instead, more info in <a href=\"{link}\">the docs</a>" link="https://ghost.org/docs/api/content/"}}}</div>
-                    </div>
-                    <div class="gh-setting-action">
-                        <div class="for-switch">{{gh-feature-flag "publicAPI"}}</div>
-                    </div>
-                </div>
-            {{/if}}
             <div class="gh-setting">
                 {{#gh-uploader
                         extensions=jsonExtension
