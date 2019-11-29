@@ -19,7 +19,8 @@ export default BaseValidator.create({
         'twitterTitle',
         'twitterDescription',
         'publishedAtBlogTime',
-        'publishedAtBlogDate'
+        'publishedAtBlogDate',
+        'emailSubject'
     ],
 
     title(model) {
@@ -121,6 +122,14 @@ export default BaseValidator.create({
             this.invalidate();
         }
     },
+
+    emailSubject(model) {
+        if (!validator.isLength(model.emailSubject || '', 0, 300)) {
+            model.errors.add('emailSubject', 'Email Subject cannot be longer than 300 characters.');
+            this.invalidate();
+        }
+    },
+
     // for posts which haven't been published before and where the blog date/time
     // is blank we should ignore the validation
     _shouldValidatePublishedAtBlog(model) {

@@ -130,6 +130,15 @@
                         </button>
                         {{svg-jar "arrow-right"}}
                     </li>
+                    {{#if (and this.feature.members (eq this.post.displayName "post") this.session.user.isOwnerOrAdmin)}}
+                        <li class="nav-list-item" {{action "showSubview" "email-settings"}} data-test-button="email-settings">
+                            <button type="button">
+                                <b>{{t "Email newsletter"}}</b>
+                                <span>{{t "Customise email settings"}}</span>
+                            </button>
+                            {{svg-jar "arrow-right"}}
+                        </li>
+                    {{/if}}
                     <li class="nav-list-item" {{action "showSubview" "codeinjection"}} data-test-button="codeinjection">
                         <button type="button">
                             <b>{{t "Code injection"}}</b>
@@ -303,6 +312,15 @@
 
                             </form>
                         </div>
+                    {{/if}}
+
+                    {{#if (eq subview "email-settings")}}
+                        <GhPostSettingsMenu::Email
+                            @post={{this.post}}
+                            @savePostTask={{this.savePost}}
+                            @toggleEmailPreviewModal={{this.toggleEmailPreviewModal}}
+                            @close={{action "closeSubview"}}
+                        />
                     {{/if}}
 
                     {{#if (eq subview "facebook-data")}}
