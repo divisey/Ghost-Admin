@@ -138,7 +138,7 @@ describe('Acceptance: Members', function () {
                 .to.contain('New member');
 
             // // all fields start blank
-            findAll('.gh-member-basic-settings-form input, .gh-member-basic-settings-form textarea').forEach(function (elem) {
+            findAll('.gh-member-basic-settings-form .gh-input').forEach(function (elem) {
                 expect(elem.value, `input field for ${elem.getAttribute('name')}`)
                     .to.be.empty;
             });
@@ -155,12 +155,10 @@ describe('Acceptance: Members', function () {
 
             await click('[data-test-button="save"]');
 
-            // extra timeout needed for FF on Linux - sometimes it doesn't update
-            // quick enough, especially on Travis, and an extra wait() call
-            // doesn't help
-            await timeout(200);
+            await wait();
 
-            // disables email field after member has been created
+            expect(find('.gh-member-basic-settings-form input[name="name"]').value, 'name has been preserved')
+                .to.equal('New Name');
             expect(find('.gh-member-basic-settings-form input[name="email-disabled"]').disabled, 'makes sure email is disabled')
                 .to.equal(true);
         });

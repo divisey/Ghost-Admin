@@ -956,5 +956,17 @@
   "Last update": "Last update",
   "Search site (Ctrl/⌘ + K)": "Search site (Ctrl/⌘ + K)",
   "Preview site": "Preview site",
-  "New story": "New story"
+  "New story": "New story",
+  "members": {
+    "{members, plural}": "{members, plural, =1{a member} other{# members}}",
+    "Members": "Members",
+    "New member": "New member",
+    "Created": "Created",
+    "Search result": "Search result",
+    "Search members...": "Search members...",
+    "Members Actions": "Members Actions",
+    "No members found!": "No members found!",
+    "No members yet": "No members yet",
+    "Member details": "Member details"
+  }
 }
