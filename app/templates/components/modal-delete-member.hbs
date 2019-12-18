@@ -5,11 +5,11 @@
 
 <div class="modal-body">
     <p>
-        {{{t "You're about to delete \"<strong>{user}</strong>\". This is permanent! We warned you, k?" user=(or member.name member.email)}}}
+        {{{t "You're about to delete \"<strong>{user}</strong>\". This is permanent! We warned you, k?" user=(or this.member.name this.member.email)}}}
     </p>
 </div>
 
 <div class="modal-footer">
     <button {{action "closeModal"}} class="gh-btn"><span>{{t "common.Cancel"}}</span></button>
-    {{gh-task-button (t "taskButton.Delete") successText=(t "taskButton.Deleted") task=deleteMember class="gh-btn gh-btn-red gh-btn-icon"}}
+    {{gh-task-button (t "taskButton.Delete") successText=(t "taskButton.Deleted") task=this.deleteMember class="gh-btn gh-btn-red gh-btn-icon"}}
 </div>

@@ -104,7 +104,7 @@ export default Component.extend({
 
             if (selected.category === this.intl.t('searchInput.Tags').toString()) {
                 let id = selected.id.replace('tag.', '');
-                this.router.transitionTo('tags.tag', id);
+                this.router.transitionTo('tag', id);
             }
         },
 

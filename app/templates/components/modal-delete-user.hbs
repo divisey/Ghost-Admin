@@ -4,11 +4,11 @@
 <a class="close" href="" title="{{t "common.Close"}}" {{action "closeModal"}}>{{svg-jar "close"}}<span class="hidden">{{t "common.Close"}}</span></a>
 
 <div class="modal-body">
-    <p>{{{t "<strong>WARNING:</strong> You are about to delete the user '<strong>{name}</strong>'. There is no way to recover this." name=user.name}}}</p>
-    {{#if user.count.posts}}
+    <p>{{{t "<strong>WARNING:</strong> You are about to delete the user '<strong>{name}</strong>'. There is no way to recover this." name=this.user.name}}}</p>
+    {{#if this.user.count.posts}}
         <ul>
             <li>{{t "The user will not have access to this blog anymore"}}</li>
-            <li>{{{t "<strong>{posts, plural}</strong> created by this user will be deleted" posts=user.count.posts}}}</li>
+            <li>{{{t "<strong>{posts, plural}</strong> created by this user will be deleted" posts=this.user.count.posts}}}</li>
             <li>{{t "All other user data will be deleted"}}</li>
         </ul>
     {{else}}
@@ -23,9 +23,9 @@
     <button {{action "closeModal"}} class="gh-btn" data-test-button="cancel-delete-user">
         <span>{{t "common.Cancel"}}</span>
     </button>
-    {{gh-task-button (if user.count.posts (t "taskButton.Delete user and their posts") (t "taskButton.Delete user"))
+    {{gh-task-button (if this.user.count.posts (t "taskButton.Delete user and their posts") (t "taskButton.Delete user"))
         successText=(t "taskButton.Deleted")
-        task=deleteUser
+        task=this.deleteUser
         class="gh-btn gh-btn-red gh-btn-icon"
         data-test-button="confirm-delete-user"}}
 </div>

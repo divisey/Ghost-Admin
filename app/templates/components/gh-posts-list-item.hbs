@@ -16,8 +16,8 @@
                 in <span class="midgrey-l2 fw5">{{this.primaryTag}}</span>
             {{/if}}
 
-            {{#if isScheduled}}
-                – <span class="gh-schedule-time">{{t "Scheduled to be published and sent {time}" time=(timegh-format-post-time this.post.publishedAtUTC scheduled=true)}}</span>
+            {{#if this.isScheduled}}
+                – <span class="gh-schedule-time">{{t "Scheduled to be published and sent {time}" time=(gh-format-post-time this.post.publishedAtUTC scheduled=true)}}</span>
             {{/if}}
         </span>
     </p>

@@ -112,6 +112,22 @@ export function isThemeValidationError(errorOrStatus, payload) {
     }
 }
 
+/* Host limit reached/exceeded error */
+
+export class HostLimitError extends AjaxError {
+    constructor(payload, msg) {
+        super(payload, msg);
+    }
+}
+
+export function isHostLimitError(errorOrStatus, payload) {
+    if (isAjaxError(errorOrStatus)) {
+        return errorOrStatus instanceof HostLimitError;
+    } else {
+        return get(payload || {}, 'errors.firstObject.type') === 'HostLimitError';
+    }
+}
+
 /* end: custom error types */
 
 let ajaxService = AjaxService.extend({
@@ -165,6 +181,8 @@ let ajaxService = AjaxService.extend({
             return new MaintenanceError(payload, this.intl.t('Ghost is currently undergoing maintenance, please wait a moment then retry.'));
         } else if (this.isThemeValidationError(status, headers, payload)) {
             return new ThemeValidationError(payload, this.intl.t('Theme is not compatible or contains errors.'));
+        } else if (this.isHostLimitError(status, headers, payload)) {
+            return new HostLimitError(payload, this.intl.t('A hosting plan limit was reached or exceeded.'));
         }
 
         let isGhostRequest = GHOST_REQUEST.test(request.url);
@@ -223,6 +241,10 @@ let ajaxService = AjaxService.extend({
 
     isThemeValidationError(status, headers, payload) {
         return isThemeValidationError(status, payload);
+    },
+
+    isHostLimitError(status, headers, payload) {
+        return isHostLimitError(status, payload);
     }
 });
 

@@ -1,16 +1,16 @@
-<span class="gh-select" data-select-text="{{selectedTimezone.label}}" tabindex="0">
+<span class="gh-select" data-select-text="{{this.selectedTimezone.label}}" tabindex="0">
     {{one-way-select
         id="activeTimezone"
         name="general[activeTimezone]"
-        options=selectableTimezones
+        options=this.selectableTimezones
         optionValuePath="name"
         optionLabelPath="label"
-        value=selectedTimezone
+        value=this.selectedTimezone
         update=(action "setTimezone")
     }}
     {{svg-jar "arrow-down-small"}}
 </span>
-{{#if hasTimezoneOverride}}
-    <p>{{t "Your timezone has been automatically set to {activeTimezone}." activeTimezone=activeTimezone}}</p>
+{{#if this.hasTimezoneOverride}}
+    <p>{{t "Your timezone has been automatically set to {activeTimezone}." activeTimezone=this.activeTimezone}}</p>
 {{/if}}
-<p>{{t "The local time here is currently {localTime}" localTime=localTime}}</p>
+<p>{{t "The local time here is currently {localTime}" localTime=this.localTime}}</p>

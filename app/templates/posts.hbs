@@ -4,14 +4,14 @@
         <h2 class="gh-canvas-title" data-test-screen-title>{{t "Posts"}}</h2>
         <section class="view-actions">
             <div class="gh-contentfilter">
-                {{#unless session.user.isContributor}}
+                {{#unless this.session.user.isContributor}}
                 {{#power-select
-                    selected=selectedType
-                    options=availableTypes
+                    selected=this.selectedType
+                    options=this.availableTypes
                     searchEnabled=false
                     onchange=(action "changeType")
                     tagName="div"
-                    classNames=typeClassNames
+                    classNames=this.typeClassNames
                     triggerClass="gh-contentfilter-menu-trigger"
                     dropdownClass="gh-contentfilter-menu-dropdown"
                     matchTriggerWidth=false
@@ -22,14 +22,14 @@
                 {{/power-select}}
                 {{/unless}}
 
-                {{#unless session.user.isAuthorOrContributor}}
+                {{#unless this.session.user.isAuthorOrContributor}}
                 {{#power-select
-                    selected=selectedAuthor
-                    options=availableAuthors
+                    selected=this.selectedAuthor
+                    options=this.availableAuthors
                     searchField="name"
                     onchange=(action "changeAuthor")
                     tagName="div"
-                    classNames=authorClassNames
+                    classNames=this.authorClassNames
                     triggerClass="gh-contentfilter-menu-trigger"
                     dropdownClass="gh-contentfilter-menu-dropdown"
                     searchPlaceholder=(t "filter.Search authors")
@@ -41,14 +41,14 @@
                 {{/power-select}}
                 {{/unless}}
 
-                {{#unless session.user.isContributor}}
+                {{#unless this.session.user.isContributor}}
                 {{#power-select
-                    selected=selectedTag
-                    options=availableTags
+                    selected=this.selectedTag
+                    options=this.availableTags
                     searchField="name"
                     onchange=(action "changeTag")
                     tagName="div"
-                    classNames=tagClassNames
+                    classNames=this.tagClassNames
                     triggerClass="gh-contentfilter-menu-trigger"
                     dropdownClass="gh-contentfilter-menu-dropdown"
                     searchPlaceholder=(t "filter.Search tags")
@@ -62,8 +62,8 @@
                 {{/unless}}
 
                 {{#power-select
-                    selected=selectedOrder
-                    options=availableOrders
+                    selected=this.selectedOrder
+                    options=this.availableOrders
                     searchEnabled=false
                     onchange=(action "changeOrder")
                     tagName="div"
@@ -83,8 +83,8 @@
     </GhCanvasHeader>
 
     <section class="content-list">
-        <ol class="posts-list gh-list {{unless postsInfinityModel "no-posts"}}">
-            {{#if postsInfinityModel}}
+        <ol class="posts-list gh-list {{unless this.postsInfinityModel "no-posts"}}">
+            {{#if this.postsInfinityModel}}
                 <li class="gh-list-row header">
                     <div class="gh-list-header no-padding">{{!--Favorite indicator column: no header--}}</div>
                     <div class="gh-list-header gh-posts-title-header">{{t "Title"}}</div>
@@ -93,14 +93,14 @@
                 </li>
             {{/if}}
 
-            {{#each postsInfinityModel as |post|}}
+            {{#each this.postsInfinityModel as |post|}}
                 {{gh-posts-list-item
                     post=post
                     data-test-post-id=post.id}}
             {{else}}
             <li class="no-posts-box">
                 <div class="no-posts">
-                    {{#if showingAll}}
+                    {{#if this.showingAll}}
                         {{svg-jar "posts-placeholder" class="gh-posts-placeholder"}}
                         <h3>{{t "You haven't written any posts yet!"}}</h3>
                         {{#link-to "editor.new" "post" class="gh-btn gh-btn-green gh-btn-lg"}}
@@ -118,7 +118,7 @@
         </ol>
 
         {{gh-infinity-loader
-            infinityModel=postsInfinityModel
+            infinityModel=this.postsInfinityModel
             scrollable=".gh-main"
             triggerOffset=1000}}
     </section>

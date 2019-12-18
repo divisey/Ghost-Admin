@@ -1,13 +1,13 @@
 <header class="gh-publishmenu-heading">{{t "Update {displayName} status" displayName=post.displayName}}</header>
 <section class="gh-publishmenu-content gh-publishmenu-section">
-    <div class="gh-publishmenu-radio {{if (eq saveType "draft") "active"}}" {{action setSaveType "draft" on="click"}}>
+    <div class="gh-publishmenu-radio {{if (eq this.saveType "draft") "active"}}" {{action this.setSaveType "draft" on="click"}}>
         <div class="gh-publishmenu-radio-button" data-test-publishmenu-unpublished-option></div>
         <div class="gh-publishmenu-radio-content">
             <div class="gh-publishmenu-radio-label">{{t "postStatus.Unpublished"}}</div>
             <div class="gh-publishmenu-radio-desc">{{t (concat post.displayName ".publish.published.revert")}}</div>
         </div>
     </div>
-    <div class="gh-publishmenu-radio {{if (eq saveType "publish") "active"}}" {{action setSaveType "publish" on="click"}}>
+    <div class="gh-publishmenu-radio {{if (eq this.saveType "publish") "active"}}" {{action this.setSaveType "publish" on="click"}}>
         <div class="gh-publishmenu-radio-button" data-test-publishmenu-published-option></div>
         <div class="gh-publishmenu-radio-content">
             <div class="gh-publishmenu-radio-label">{{t "postStatus.Published"}}</div>
