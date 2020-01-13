@@ -855,7 +855,7 @@
       "Markdown": "Markdown",
       "HTML": "HTML",
       "Gallery": "画廊",
-      "Divider": "分隔器",
+      "Divider": "分隔线",
       "Bookmark": "书签",
       "YouTube": "YouTube",
       "Twitter": "Twitter",
@@ -969,5 +969,10 @@
     "No members found!": "未发现成员！",
     "No members yet": "还没有成员",
     "Member details": "成员详情"
-  }
+  },
+  "Scheduled to be published and sent {time}": "已设置定时发布，会在 {time} 发布",
+  "By <span class=\"midgrey-l2 fw5\">{authorNames}</span>": "By <span class=\"midgrey-l2 fw5\">{authorNames}</span>",
+  "Edit this post": "编辑这篇文章",
+  "Post has been sent by email": "文章已经通过邮件发送",
+  "Secondary Navigation": "二级导航"
 }

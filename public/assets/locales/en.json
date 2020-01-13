@@ -969,5 +969,10 @@
     "No members found!": "No members found!",
     "No members yet": "No members yet",
     "Member details": "Member details"
-  }
+  },
+  "Scheduled to be published and sent {time}": "Scheduled to be published and sent {time}",
+  "By <span class=\"midgrey-l2 fw5\">{authorNames}</span>": "By <span class=\"midgrey-l2 fw5\">{authorNames}</span>",
+  "Edit this post": "Edit this post",
+  "Post has been sent by email": "Post has been sent by email",
+  "Secondary Navigation": "Secondary Navigation"
 }
