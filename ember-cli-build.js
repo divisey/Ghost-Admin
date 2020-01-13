@@ -239,8 +239,8 @@ module.exports = function (defaults) {
     // 'dem Scripts
     app.import('node_modules/google-caja-bower/html-css-sanitizer-bundle.js');
     app.import('node_modules/keymaster/keymaster.js');
-    app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.js');
-    app.import('node_modules/@tryghost/mobiledoc-kit/dist/amd/mobiledoc-kit.map');
+    app.import('node_modules/@bugfix/mobiledoc-kit/dist/amd/mobiledoc-kit.js');
+    app.import('node_modules/@bugfix/mobiledoc-kit/dist/amd/mobiledoc-kit.map');
     app.import('node_modules/reframe.js/dist/noframe.js');
 
     // pull things we rely on via lazy-loading into the test-support.js file so
